@@ -1,12 +1,19 @@
 package com.ntu.learn.inetprog.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.ntu.learn.inetprog.constants.OnlineCSRoomConstants;
+import com.ntu.learn.inetprog.model.Menu;
 
 /**
  * Servlet implementation class LoginServlet
@@ -62,7 +69,25 @@ public class LoginServlet extends HttpServlet {
 		if((userName == null || "".equals(userName)) || (password == null || "".equals(password) )) {
 			
 			response.sendRedirect("login.jsp");
+		} else {
+			
+		
+		List<Menu> lstMenu = new ArrayList<Menu>();
+		
+		
+		if (userType.equalsIgnoreCase(OnlineCSRoomConstants.USER_ROLE_STUDENT)) {
+			lstMenu.add(new Menu("", OnlineCSRoomConstants.MENU_FIND_COURSE));
+			lstMenu.add(new Menu("", OnlineCSRoomConstants.MENU_MY_COURSE));
+			lstMenu.add(new Menu("", OnlineCSRoomConstants.MENU_MY_PROFILE));
+			lstMenu.add(new Menu("LogoutServlet", OnlineCSRoomConstants.MENU_SIGN_OUT));
 		}
+		
+		request.setAttribute("lstMenu", lstMenu);
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
+        requestDispatcher.forward(request, response);
+		}
+		
 	}
 
 }
