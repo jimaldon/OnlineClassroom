@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("===== Inside Login Servlet POST Method ===== ");
 		
-		
+		HttpSession session = request.getSession();
 		
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
@@ -74,16 +74,18 @@ public class LoginServlet extends HttpServlet {
 		
 		List<Menu> lstMenu = new ArrayList<Menu>();
 		
+		session.setAttribute("user", userName);
 		
 		if (userType.equalsIgnoreCase(OnlineCSRoomConstants.USER_ROLE_STUDENT)) {
-			lstMenu.add(new Menu("", OnlineCSRoomConstants.MENU_FIND_COURSE));
-			lstMenu.add(new Menu("", OnlineCSRoomConstants.MENU_MY_COURSE));
-			lstMenu.add(new Menu("", OnlineCSRoomConstants.MENU_MY_PROFILE));
+			lstMenu.add(new Menu("FindCoursesServlet", OnlineCSRoomConstants.MENU_FIND_COURSE));
+			lstMenu.add(new Menu("MyCoursesServlet", OnlineCSRoomConstants.MENU_MY_COURSE));
+			lstMenu.add(new Menu("MyProfileServlet", OnlineCSRoomConstants.MENU_MY_PROFILE));
 			lstMenu.add(new Menu("LogoutServlet", OnlineCSRoomConstants.MENU_SIGN_OUT));
 		}
 		
 		request.setAttribute("lstMenu", lstMenu);
-
+		session.setAttribute("lstMenu", lstMenu);
+		
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
         requestDispatcher.forward(request, response);
 		}

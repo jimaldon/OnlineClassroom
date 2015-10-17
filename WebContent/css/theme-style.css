@@ -33,7 +33,7 @@ body a {
 	text-transform: uppercase;
 }
 .top-nav ul li a:hover {
-	color: #F00;
+	color: #FFF;
 	background-color: rgba(0, 0, 0, 0.9);
 	padding: 0px;
 	display: inline-block;

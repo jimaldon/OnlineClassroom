@@ -184,6 +184,11 @@ td,
 th {
   padding: 0;
 }
+
+.td,
+th {
+  padding: 20px;
+}
 @media print {
   * {
     color: #000 !important;
