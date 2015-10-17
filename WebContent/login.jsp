@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -32,23 +33,20 @@
 			<h3>Login</h3>
 			<div class="contact-grids">
 				<div class="col-md-6 contact-grid-left">
-					<form method="post" action="LoginServlet">
 
+					<div>
+						<c:if test="${not empty error}">
+    						<span style="color: red;"> ${error }</span>
+						</c:if>
+					</div>
+
+					<form method="post" action="LoginServlet">
 						<table>
 							<tr>
 								<td><input type="text" placeholder="User Name " name="userName"/></td>
 							</tr>
 							<tr>
 								<td><input type="password" placeholder="Password " name="password"/></td>
-							</tr>
-						
-							<tr>
-								<td>
-								<br><select name="userType">
-										<option value="admin">Admin</option>
-										<option value="staff">Staff</option>
-										<option value="student">Student</option>
-								</select></td>
 							</tr>
 						</table>
 						<span class="submit-btn"> <input type="submit" value="Submit">
