@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		System.out.println("===== Inside Login Servlet ===== ");
 		response.getWriter().append("Served at: ")
 				.append(request.getContextPath());
@@ -62,7 +62,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		System.out.println("===== Inside Login Servlet POST Method ===== ");
 
 		HttpSession session = request.getSession();
@@ -106,8 +106,9 @@ public class LoginServlet extends HttpServlet {
 							OnlineCSRoomConstants.MENU_SIGN_OUT));
 				} else if (user.getTypeOfUser().equalsIgnoreCase(
 						OnlineCSRoomConstants.USER_ROLE_ADMIN)) {
-					lstMenu.add(new Menu("LogoutServlet",
-							OnlineCSRoomConstants.MENU_SIGN_OUT));
+					lstMenu.add(new Menu("AdminUserServlet", OnlineCSRoomConstants.MENU_ADMIN_USER));
+					//lstMenu.add(new Menu("", OnlineCSRoomConstants.MENU_ADMIN_COURSE));
+					lstMenu.add(new Menu("LogoutServlet",OnlineCSRoomConstants.MENU_SIGN_OUT));
 				}
 	
 				request.setAttribute("lstMenu", lstMenu);

@@ -20,7 +20,9 @@ public class OnlineCSRoomConstants {
 	public static final String MENU_SIGN_OUT = "Sign Out";
 	public static final String MENU_MY_PROFILE = "My Profile";
 	public static final String MENU_MY_COURSE = "My Course";
-	public static final String MENU_FIND_COURSE= "FIND COURSE";
+	public static final String MENU_FIND_COURSE= "Find Course";
+	public static final String MENU_ADMIN_USER = "User Admin";
+	public static final String MENU_ADMIN_COURSE = "Courses";
 	
 	/**
 	 * General Yes or No Flag

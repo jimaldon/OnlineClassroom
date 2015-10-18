@@ -14,8 +14,8 @@ public class UserDBAO extends DatabaseUtil {
 
 	public Users authenticate(String userId, String password) {
 		try {
-			String selectStatement = "select LoginName, TypeOfUser, IsDeleted "
-					+ "from users where LoginName = ? and Pwd = ? ";
+			String selectStatement = "select LoginName, UserType, IsDeleted "
+					+ "from users_profile where LoginName = ? and Password = ? ";
 			PreparedStatement prepStmt = getDBConnection().prepareStatement(
 					selectStatement);
 			prepStmt.setString(1, userId);
@@ -25,7 +25,7 @@ public class UserDBAO extends DatabaseUtil {
 			if (rs.next()) {
 				Users user = new Users();
 				user.setLoginName(rs.getString("LoginName"));
-				user.setTypeOfUser(rs.getString("TypeOfUser"));
+				user.setTypeOfUser(rs.getString("UserType"));
 				user.setIsDeleted(rs.getString("IsDeleted"));
 				return user;
 			}
