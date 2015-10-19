@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ntu.learn.inetprog.database.UserDBAO;
 import com.ntu.learn.inetprog.model.Menu;
+import com.ntu.learn.inetprog.model.Users;
 
 /**
  * Servlet implementation class MyProfileServlet
@@ -43,6 +45,11 @@ public class MyProfileServlet extends HttpServlet {
 			@SuppressWarnings("unchecked")
 			List<Menu> lstMenu = (List<Menu>) session.getAttribute("lstMenu");
 			request.setAttribute("lstMenu", lstMenu);
+			
+			UserDBAO userDBAO = new UserDBAO();
+			Users users = userDBAO.getUserProfileByName(user.toUpperCase());
+			request.setAttribute("profile", users);
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("profile.jsp");
 			requestDispatcher.forward(request, response);
 		}

@@ -64,6 +64,7 @@
 			<div class="container">
 				<h3><%=request.getParameter("course") %></h3>
 
+	<c:forEach var="course" items="${lstCourses }">
 				<!---->
 				<div class="col-md-4 artical-row2">
 					<!----start-artical-info---->
@@ -71,117 +72,37 @@
 						<div class="post-head post-head1">
 							<div class="post-head-left">
 								<h4>
-									<a href="#">This is blog post title</a>
+									<a href="FindCoursesServlet?courseId=${course.courseCode }">${course.courseTitle }</a>	
 								</h4>
 								<p class="author">
-									By <a href="#"> Amine Fessi</a>
+									By <a href="#"> ${course.author }</a>
 								</p>
 
 							</div>
 							<div class="post-head-right post-head-right-C">
-								<span>4</span> <label>August 2015</label>
+								<span>${course.courseDate }</span> <label>${course.courseMonth } ${course.courseYear }</label>
 							</div>
 							<div class="clearfix"></div>
 						</div>
-						<p class="post-text">Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Phasellus laoreet turpis a nibh feugiat, nec
-							viverra arcu lacinia. Praesent facilisis diam eget velit
-							tristique, a commodo elit porttitor. Mauris ac pretium ligula.
-							Nam ultricies metus eu semper rutrum. Pellentesque tortor nulla.</p>
+						<p class="post-text">${course.courseShortDesc }.</p>
 						<div class="post-bottom">
 							<div class="post-bottom-left">
 								<p>
-									<a href="#">10 Comments</a> | <a href="#"><i
-										class="fa fa-heart"> </i> 151</a>
+								<c:if test="${not empty course.comments}">
+									<a href="#">${ course.comments } Comments</a> | </c:if> 
+									<c:if test="${not empty course.likes}"><a href="#"><i
+										class="fa fa-heart"> </i> ${course.likes }</a> </c:if>
 								</p>
 							</div>
 							<div class="post-bottom-right">
-								<a class="artbtn artbtn1" href="#">Read More</a>
+								<a class="artbtn artbtn1" href="FindCoursesServlet?courseId=${course.courseCode }">Read More</a>
 							</div>
 							<div class="clearfix"></div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4 artical-row2">
-					<!----start-artical-info---->
-
-					<!----//End-artical-info---->
-					<!----start-artical-info---->
-					<div class="artical-info">
-						<div class="post-head post-head1">
-							<div class="post-head-left">
-								<h4>
-									<a href="#">This is blog post title</a>
-								</h4>
-								<p class="author">
-									By <a href="#"> Amine Fessi</a>
-								</p>
-							</div>
-							<div class="post-head-right post-head-right-C">
-								<span>4</span> <label>August 2015</label>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<p class="post-text">Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Phasellus laoreet turpis a nibh feugiat, nec
-							viverra arcu lacinia. Praesent facilisis diam eget velit
-							tristique, a commodo elit porttitor. Mauris ac pretium ligula.
-							Nam ultricies metus eu semper rutrum. Pellentesque tortor nulla.</p>
-						<div class="post-bottom">
-							<div class="post-bottom-left">
-								<p>
-									<a href="#">10 Comments</a> | <a href="#"><i
-										class="fa fa-heart"> </i> 151</a>
-								</p>
-							</div>
-							<div class="post-bottom-right">
-								<a class="artbtn artbtn1" href="#">Read More</a>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-					</div>
-					<!----//End-artical-info---->
-				</div>
-				<div class="col-md-4 artical-row2">
-					<!----start-artical-info---->
-
-					<!----//End-artical-info---->
-					<!----start-artical-info---->
-					<div class="artical-info">
-						<div class="post-head post-head1">
-							<div class="post-head-left">
-								<h4>
-									<a href="#">This is blog post title</a>
-								</h4>
-								<p class="author">
-									By <a href="#"> Amine Fessi</a>
-								</p>
-							</div>
-							<div class="post-head-right post-head-right-C">
-								<span>4</span> <label>August 2015</label>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<p class="post-text">Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Phasellus laoreet turpis a nibh feugiat, nec
-							viverra arcu lacinia. Praesent facilisis diam eget velit
-							tristique, a commodo elit porttitor. Mauris ac pretium ligula.
-							Nam ultricies metus eu semper rutrum. Pellentesque tortor nulla.</p>
-						<div class="post-bottom">
-							<div class="post-bottom-left">
-								<p>
-									<a href="#">10 Comments</a> | <a href="#"><i
-										class="fa fa-heart"> </i> 151</a>
-								</p>
-							</div>
-							<div class="post-bottom-right">
-								<a class="artbtn artbtn1" href="#">Read More</a>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-					</div>
-					<!----//End-artical-info---->
-				</div>
+				
+				</c:forEach>
 			</div>
 		</div>
 	</c:if>

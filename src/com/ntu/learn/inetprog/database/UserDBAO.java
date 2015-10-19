@@ -12,6 +12,8 @@ import com.ntu.learn.inetprog.model.Users;
  */
 public class UserDBAO extends DatabaseUtil {
 
+	String getUserProfile = "select FirstName, LastName, Gender, Address, City, Country, Email, Telephone, PostalCode from users_profile where upper(LoginName) = ? ";
+	
 	public Users authenticate(String userId, String password) {
 		try {
 			String selectStatement = "select LoginName, UserType, IsDeleted "
@@ -34,6 +36,27 @@ public class UserDBAO extends DatabaseUtil {
 			System.err.println("=== Error in User Authentication ===== ");
 			e.printStackTrace();
 			return null;
+		}
+		return null;
+	}
+	
+	public Users getUserProfileByName(String userId) {
+		try {
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(
+					getUserProfile);
+			prepStmt.setString(1, userId);
+			ResultSet rs = prepStmt.executeQuery();
+			System.out.println("=== SQL Firing to Database " + getUserProfile);
+			System.out.println("=== SQL Parameters " + userId);
+			if (rs.next()) {
+				Users user = new Users();
+				user.setFirstName(rs.getString("FirstName"));
+				user.setLastName(rs.getString("LastName"));
+				user.setGender(rs.getString("Gender"));
+				return user;
+			}
+		} catch(Exception e) {
+			
 		}
 		return null;
 	}

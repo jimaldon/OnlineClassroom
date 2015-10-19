@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ntu.learn.inetprog.database.CoursesDBAO;
+import com.ntu.learn.inetprog.model.Courses;
 import com.ntu.learn.inetprog.model.Menu;
 
 /**
@@ -43,6 +45,11 @@ public class MyCoursesServlet extends HttpServlet {
 			@SuppressWarnings("unchecked")
 			List<Menu> lstMenu = (List<Menu>) session.getAttribute("lstMenu");
 			request.setAttribute("lstMenu", lstMenu);
+			
+			CoursesDBAO courseDBAO = new CoursesDBAO();
+			List<Courses> lstCourses = courseDBAO.getAllCourseByUserName(user.toUpperCase());
+			request.setAttribute("lstCourses", lstCourses);
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("mycourses.jsp");
 			requestDispatcher.forward(request, response);
 		}

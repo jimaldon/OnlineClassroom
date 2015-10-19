@@ -43,11 +43,17 @@
 		<div class="container">
 			<h3>My Profile</h3>
 			<!----start-portfolio---->
+			<c:if test="${not empty profile}">
 			<div id="port" class="container portfolio-main">
 				<table>
 					<tr>
 						<td class="td">Display Name</td>
-						<td class="td"><input type="text" name="displayName"
+						<td class="td"><input type="text" name="displayName" value="${profile.firstName }"
+							style="width: 392.22222px;" /></td>
+					</tr>
+					<tr>
+						<td class="td">Last Name</td>
+						<td class="td"><input type="text" name="lastName" value="${profile.lastName }"
 							style="width: 392.22222px;" /></td>
 					</tr>
 					<tr>
@@ -227,6 +233,7 @@
 				</table>
 
 			</div>
+			</c:if>
 		</div>
 		<div class="clearfix"></div>
 	</div>

@@ -45,6 +45,7 @@
 			<div id="port" class="container portfolio-main">
 
 				<div id="portfoliolist">
+				<c:forEach var="courses" items="${lstCourses }">
 					<div class="portfolio logo1 mix_all" data-cat="logo"
 						style="display: inline-block; opacity: 1;">
 						<div class="portfolio-wrapper">
@@ -55,12 +56,13 @@
 						</div>
 						<div class="port-info">
 							<h4>
-								<a href="#">Flat Pixel</a>
+								<a href="#">${courses.courseTitle }</a>
 							</h4>
 
 						</div>
 					</div>
-					<div class="portfolio app mix_all" data-cat="app"
+					</c:forEach>
+					<!-- <div class="portfolio app mix_all" data-cat="app"
 						style="display: inline-block; opacity: 1;">
 						<div class="portfolio-wrapper">
 							<a data-toggle="modal" data-target=".bs-example-modal-md"
@@ -89,7 +91,7 @@
 							</h4>
 
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<div class="clearfix"></div>
 			</div>
