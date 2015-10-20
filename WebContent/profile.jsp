@@ -256,19 +256,19 @@
 							</tr>
 							<tr>
 								<td class="td">Telephone</td>
-								<td class="td"><input type="text" name="telephone"
+								<td class="td"><input type="text" name="telephone" value="${profile.telephone }"
 									style="width: 392.22222px;" /></td>
 							</tr>
 							<tr>
 								<td class="td">Email</td>
-								<td class="td"><input type="text" name="emailId"
+								<td class="td"><input type="text" name="emailId" value="${profile.email }"
 									style="width: 392.22222px;" /></td>
 							</tr>
 							<tr>
 
 								<td class="td" colspan="2" align="center"><input
 									type="submit" value="Save" class="artbtn artbtn1"> <input
-									type="button" value="Back" class="artbtn artbtn1" onclick="location.href='LoginServlet'"></td>
+									type="button" value="Back" class="artbtn artbtn1" onclick="location.href='home.jsp'"></td>
 							</tr>
 						</table>
 

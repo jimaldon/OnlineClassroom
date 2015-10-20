@@ -34,24 +34,34 @@ public class MyCoursesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	System.out.println("==== Loading My Courses Servlet doGet Method ====");
+		System.out.println("==== Loading My Courses Servlet doGet Method ====");
+		
+		String courseCode = request.getParameter("courseCode");
+		System.out.println("==== Requsting to Load Course ===== " + courseCode);
 		
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
 		if(user == null || "".equals(user)) {
 			response.sendRedirect("login.jsp");
 		} else {
-			@SuppressWarnings("unchecked")
-			List<Menu> lstMenu = (List<Menu>) session.getAttribute("lstMenu");
-			request.setAttribute("lstMenu", lstMenu);
 			
-			CoursesDBAO courseDBAO = new CoursesDBAO();
-			List<Courses> lstCourses = courseDBAO.getAllCourseByUserName(user.toUpperCase());
-			request.setAttribute("lstCourses", lstCourses);
+			if(courseCode == null || "".equals(courseCode)) {
+				@SuppressWarnings("unchecked")
+				List<Menu> lstMenu = (List<Menu>) session.getAttribute("lstMenu");
+				request.setAttribute("lstMenu", lstMenu);
+				
+				CoursesDBAO courseDBAO = new CoursesDBAO();
+				List<Courses> lstCourses = courseDBAO.getAllCourseByUserName(user.toUpperCase());
+				request.setAttribute("lstCourses", lstCourses);
+				
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("mycourses.jsp");
+				requestDispatcher.forward(request, response);
+			} else {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("coursedetails.jsp");
+				requestDispatcher.forward(request, response);
+			}
 			
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("mycourses.jsp");
-			requestDispatcher.forward(request, response);
+			
 		}
 	}
 

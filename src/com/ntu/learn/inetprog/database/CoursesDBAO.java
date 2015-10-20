@@ -13,6 +13,8 @@ public class CoursesDBAO extends DatabaseUtil {
 
 	String getAllCourseByUserSql = "select CourseCode, Title, shortDescription, course_Month, course_Date, course_year, comments, likes, author from courses co join course_enrolls ce on co.CourseID = ce.CourseID where  upper(ce.LoginName) = ? ";
 
+	String getCourseByCourseId = "select CourseCode, Title, shortDescription, course_Month, course_Date, course_year, comments, likes, author from courses co  where upper(co.CourseCode) = ?";
+	
 	public List<Courses> getAllCourseByCategory(String categoryName) {
 		try {
 
@@ -71,6 +73,33 @@ public class CoursesDBAO extends DatabaseUtil {
 
 			return lstCourses;
 
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public Courses getCourseByCourseId(String courseCode) {
+		try {
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(
+					getCourseByCourseId);
+			prepStmt.setString(1, courseCode);
+			System.out.println(" SQL Going to Fire "+prepStmt.toString());
+			ResultSet rs = prepStmt.executeQuery();
+			Courses course = new Courses();
+			if (rs.next()) {
+				course.setCourseCode(rs.getString("CourseCode"));
+				course.setCourseTitle(rs.getString("Title"));
+				course.setCourseShortDesc(rs.getString("shortDescription"));
+				course.setCourseYear(rs.getString("course_year"));
+				course.setCourseDate(rs.getString("course_Date"));
+				course.setCourseMonth(rs.getString("course_Month"));
+				course.setComments(rs.getString("comments"));
+				course.setLikes(rs.getString("likes"));
+				course.setAuthor(rs.getString("author"));
+			}
+			return course;
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -38,9 +38,10 @@ public class FindCoursesServlet extends HttpServlet {
 		System.out.println("==== Loading Find Courses Servlet doGet Method ====");
 		
 		String courseName = request.getParameter("course");
+		String courseCode = request.getParameter("courseId");
 		
 		System.out.println("==== Find Courses for Category "+ courseName +" ====");
-		
+		System.out.println("==== Load course id "+ courseCode +" ====");
 		
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
@@ -52,8 +53,20 @@ public class FindCoursesServlet extends HttpServlet {
 		if(user == null || "".equals(user)) {
 			response.sendRedirect("login.jsp");
 		} else {
+				CoursesDBAO courseDBAO = new CoursesDBAO();
+			
+			 if (courseCode != null && !"".equals(courseCode)) {
 
-			if(courseName == null || "".equals(courseName)) {
+				System.out.println("=== Selected Course Id ==== " + courseCode);
+				
+				Courses course = courseDBAO.getCourseByCourseId(courseCode.toUpperCase());
+				
+				request.setAttribute("course", course);
+				
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("coursedetails.jsp");
+				requestDispatcher.forward(request, response);
+			}
+			 else if(courseName == null || "".equals(courseName)) {
 				request.setAttribute("selectedCourse", false);
 				System.out.println("==== Setting Selected Course Flag N ====");
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("findcourses.jsp");
@@ -61,14 +74,16 @@ public class FindCoursesServlet extends HttpServlet {
 			} else {
 				request.setAttribute("selectedCourse", true);
 				System.out.println("==== Setting Selected Course Flag Y ====");
-				
-				CoursesDBAO courseDBAO = new CoursesDBAO();
+
+				System.out.println("=== Course Id is null -===== Loading all the courses");
+			
 				List<Courses> lstCourses = courseDBAO.getAllCourseByCategory(courseName.toUpperCase());
-				
+
 				request.setAttribute("lstCourses", lstCourses);
-				
+
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("findcourses.jsp");
 				requestDispatcher.forward(request, response);
+				
 			}
 			
 		}

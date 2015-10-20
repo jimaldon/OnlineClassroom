@@ -38,36 +38,30 @@
 		</div>
 	</div>
 	<div class="clearfix"></div>
-
-	<div id="port" class="portfolio portfolio-box">
+	<div class="testmonials">
 		<div class="container">
-			<h3>My Courses</h3>
-			<div id="port" class="container portfolio-main">
-
-				<div id="portfoliolist">
-				<c:forEach var="courses" items="${lstCourses }">
-					<div class="portfolio logo1 mix_all" data-cat="logo"
-						style="display: inline-block; opacity: 1;">
-						<div class="portfolio-wrapper">
-							<a data-toggle="modal" data-target=".bs-example-modal-md"
-								href="#" class="b-link-stripe b-animate-go  thickbox"> <img
-								class="p-img" src="images/p3.jpg" />
-							</a>
-						</div>
-						<div class="port-info">
-							<h4>
-								<a href="MyCoursesServlet?courseCode=${courses.courseCode }">${courses.courseTitle }</a>
-							</h4>
-
-						</div>
-					</div>
-					</c:forEach>
-				</div>
-				<div class="clearfix"></div>
+			<div class="client-pic col-md-4">
+				<img src="images/client.jpg" title="name" />
 			</div>
+			<div class="client-sys col-md-8">
+				<div class="gallery items-3">
+					<figure class="item">
+						<h3>${course.courseTitle }:</h3>
+						<p class="client-says">
+							<span class="left-quit"> &#8220;</span>${course.courseShortDesc }<span
+								class="right-quit"> &#8221;</span>
+						</p>
+					</figure>
+					
+					
+					<div class="clearfix"></div>
+
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
-
 	<div class="clearfix"></div>
 
 	<div class="copy-right">
