@@ -40,6 +40,14 @@ public class Users implements Serializable {
 	
 	private String isDeleted;
 
+	private String bDate;
+	
+	private String bMonth;
+	
+	private String bYear;
+	
+	private String aboutMe;
+	
 	public String getLoginName() {
 		return loginName;
 	}
@@ -142,5 +150,37 @@ public class Users implements Serializable {
 
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
+	}
+
+	public String getbDate() {
+		return bDate;
+	}
+
+	public void setbDate(String bDate) {
+		this.bDate = bDate;
+	}
+
+	public String getbMonth() {
+		return bMonth;
+	}
+
+	public void setbMonth(String bMonth) {
+		this.bMonth = bMonth;
+	}
+
+	public String getbYear() {
+		return bYear;
+	}
+
+	public void setbYear(String bYear) {
+		this.bYear = bYear;
+	}
+
+	public String getAboutMe() {
+		return aboutMe;
+	}
+
+	public void setAboutMe(String aboutMe) {
+		this.aboutMe = aboutMe;
 	}
 }

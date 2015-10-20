@@ -61,7 +61,64 @@ public class MyProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
+		if(user == null || "".equals(user)) {
+			response.sendRedirect("login.jsp");
+		} else {
+			
+			String firstName = request.getParameter("displayName");
+			String lastName = request.getParameter("lastName");
+			String gender = request.getParameter("gender");
+			String birthDate = request.getParameter("date");
+			String birthMonth = request.getParameter("month");
+			String birthYear = request.getParameter("year");
+			String aboutMe = request.getParameter("aboutMe");
+			String address = request.getParameter("address");
+			String country = request.getParameter("country");
+			String postalCode = request.getParameter("postalCode");
+			String telephone = request.getParameter("telephone");
+			String email = request.getParameter("emailId");
+			
+			System.out.println("=== Updating user profile information with following values " + 
+			firstName +"," + lastName +","+gender +"," + birthDate +"," + birthMonth+","+birthYear+","+aboutMe+","
+					+ ""+address+","+country+","+postalCode+","+telephone+","+email);
+			
+			Users users = new Users();
+			users.setFirstName(firstName);
+			users.setLastName(lastName); 
+			users.setAboutMe(aboutMe);
+			users.setbDate(birthDate);
+			users.setbMonth(birthMonth);
+			users.setbYear(birthYear);
+			users.setCountry(country);
+			users.setTelephone(telephone);
+			users.setEmail(email);
+			users.setPostalCode(postalCode);
+			users.setAddress(address);
+			users.setGender(gender);
+			
+			users.setLoginName(user.toUpperCase());
+			
+			UserDBAO userDBAO = new UserDBAO();
+			boolean updateFlag = true;
+			try {
+				userDBAO.updateUserProfile(users);
+			} catch(Exception e) {
+				e.printStackTrace();
+				updateFlag = false;
+			}
+			if(updateFlag) {
+				request.setAttribute("message", "Your Profile Has Been Updated Successfully");
+			} else {
+				request.setAttribute("message", "Oops, There was some error, Please contact System Admin");
+			}
+			request.setAttribute("profile", users);
+			
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("profile.jsp");
+			requestDispatcher.forward(request, response);
+		}
 	}
 
 }
