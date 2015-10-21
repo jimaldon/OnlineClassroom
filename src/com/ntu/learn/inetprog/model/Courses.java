@@ -23,6 +23,12 @@ public class Courses implements Serializable {
 	private String likes;
 	
 	private String author;
+	
+	private String aboutCourse;
+	
+	private String courseSyallbus;
+	
+	private String videoURL;
 
 	public String getCourseTitle() {
 		return courseTitle;
@@ -94,5 +100,29 @@ public class Courses implements Serializable {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public String getAboutCourse() {
+		return aboutCourse;
+	}
+
+	public void setAboutCourse(String aboutCourse) {
+		this.aboutCourse = aboutCourse;
+	}
+
+	public String getCourseSyallbus() {
+		return courseSyallbus;
+	}
+
+	public void setCourseSyallbus(String courseSyallbus) {
+		this.courseSyallbus = courseSyallbus;
+	}
+
+	public String getVideoURL() {
+		return videoURL;
+	}
+
+	public void setVideoURL(String videoURL) {
+		this.videoURL = videoURL;
 	}
 }

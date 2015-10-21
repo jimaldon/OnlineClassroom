@@ -52,16 +52,69 @@
 								class="right-quit"> &#8221;</span>
 						</p>
 					</figure>
-					
-					
-					<div class="clearfix"></div>
 
 					<div class="clearfix"></div>
 				</div>
+
 			</div>
+
 			<div class="clearfix"></div>
 		</div>
 	</div>
+	<div class="clearfix"></div>
+	<c:if test="${not empty course.aboutCourse }">
+		<div class="blog-grids">
+			<div class="col-md-10 ">
+				<div class="artical-info" style="padding-left: 250px;">
+					<div class="post-head">
+						<div class="post-head-left">
+							<h4>
+								<a href="#">About Course</a>
+							</h4>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<p class="post-text">${course.aboutCourse }</p>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<c:if test="${not empty course.courseSyallbus }">
+				<div class="col-md-7">
+					<div class="artical-info" style="padding-left: 250px;">
+						<div class="post-head">
+							<div class="post-head-left">
+								<h4>
+									<a href="#">Course Syllabus</a>
+								</h4>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<p class="post-text">${course.courseSyallbus }</p>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="artical-info">
+						<div class="post-head">
+							<div class="post-head-left">
+								<h4>
+									<a href="#">Upcoming Session</a>
+								</h4>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="post-bottom-right">
+							<a class="artbtn artbtn1" href="#openModal">Enroll</a>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</c:if>
+
+		</div>
+	</c:if>
+
+
 	<div class="clearfix"></div>
 
 	<div class="copy-right">
@@ -71,6 +124,18 @@
 					target="_blank" href="#"></a>
 			</p>
 
+		</div>
+	</div>
+
+	<div id="openModal" class="modalDialog">
+		<div>
+			<a href="#close" title="Close" class="close">X</a>
+			<h2>${course.courseTitle }</h2>
+			<p>Your course request will be submit to administrator</p>
+			<div class="post-bottom-right">
+				<a class="artbtn artbtn1" href="home.jsp">Enroll</a>
+			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
 </body>

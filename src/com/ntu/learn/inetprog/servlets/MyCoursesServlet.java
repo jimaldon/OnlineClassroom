@@ -37,7 +37,10 @@ public class MyCoursesServlet extends HttpServlet {
 		System.out.println("==== Loading My Courses Servlet doGet Method ====");
 		
 		String courseCode = request.getParameter("courseCode");
+		String enrollCourseCode = request.getParameter("enrollCourseCode");
+		
 		System.out.println("==== Requsting to Load Course ===== " + courseCode);
+		System.out.println("==== Requsting to enroll course ===== " + enrollCourseCode);
 		
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
@@ -45,7 +48,9 @@ public class MyCoursesServlet extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		} else {
 			
-			if(courseCode == null || "".equals(courseCode)) {
+			if(enrollCourseCode != null && !"".equals(enrollCourseCode)) {
+				response.sendRedirect("home.jsp");
+			} else if(courseCode == null || "".equals(courseCode)) {
 				@SuppressWarnings("unchecked")
 				List<Menu> lstMenu = (List<Menu>) session.getAttribute("lstMenu");
 				request.setAttribute("lstMenu", lstMenu);

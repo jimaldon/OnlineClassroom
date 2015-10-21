@@ -13,7 +13,10 @@ public class CoursesDBAO extends DatabaseUtil {
 
 	String getAllCourseByUserSql = "select CourseCode, Title, shortDescription, course_Month, course_Date, course_year, comments, likes, author from courses co join course_enrolls ce on co.CourseID = ce.CourseID where  upper(ce.LoginName) = ? ";
 
-	String getCourseByCourseId = "select CourseCode, Title, shortDescription, course_Month, course_Date, course_year, comments, likes, author from courses co  where upper(co.CourseCode) = ?";
+	String getCourseByCourseId = " select co.CourseCode, co.Title, co.shortDescription, "
+			+ "co.course_Month, co.course_Date, co.course_year, co.comments, co.likes, co.author , "
+			+ "cc.AboutCourse, cc.Syllabus, cc.VideoURL from courses co join course_contents cc on co.CourseCode = cc.CourseCode "
+			+ "where upper(co.CourseCode) = ?";
 	
 	public List<Courses> getAllCourseByCategory(String categoryName) {
 		try {
@@ -98,7 +101,15 @@ public class CoursesDBAO extends DatabaseUtil {
 				course.setComments(rs.getString("comments"));
 				course.setLikes(rs.getString("likes"));
 				course.setAuthor(rs.getString("author"));
+				String syllabus = rs.getString("Syllabus");
+				syllabus = syllabus.replace("\n", "<br>");
+				course.setCourseSyallbus(syllabus);
+				course.setAboutCourse(rs.getString("AboutCourse"));
+				course.setVideoURL(rs.getString("VideoURL"));
 			}
+			
+			
+			
 			return course;
 		} catch(Exception e) {
 			e.printStackTrace();
