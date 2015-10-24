@@ -44,7 +44,7 @@ public class MyCoursesServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
-		
+		CoursesDBAO courseDBAO = new CoursesDBAO();
 		if(user == null || "".equals(user)) {
 			response.sendRedirect("login.jsp");
 		} else {
@@ -56,8 +56,9 @@ public class MyCoursesServlet extends HttpServlet {
 				List<Menu> lstMenu = (List<Menu>) session.getAttribute("lstMenu");
 				request.setAttribute("lstMenu", lstMenu);
 				
-				CoursesDBAO courseDBAO = new CoursesDBAO();
+				
 				List<Courses> lstCourses = courseDBAO.getAllCourseByUserName(user.toUpperCase());
+				
 				if(lstCourses.isEmpty()) {
 					request.setAttribute("message", "You're either not enrolled in any course or your enrolled course is yet to be approved.");
 				} else {
@@ -66,13 +67,32 @@ public class MyCoursesServlet extends HttpServlet {
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("mycourses.jsp");
 				requestDispatcher.forward(request, response);
 			} else {
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("courseStudent.jsp");
-				requestDispatcher.forward(request, response);
+				System.out.println("5");
+				Courses course = courseDBAO.getCourseByCourseId(courseCode);
+				String courseTitle=course.getCourseTitle();
+				System.out.println("6");
+				if(courseCode =="DB1"){
+					System.out.println("1");
+					request.setAttribute("courseCode",courseCode);
+					request.setAttribute("courseTitle",courseTitle);
+					System.out.println("3");
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("courseStudent.jsp");
+					requestDispatcher.forward(request, response);
+				}
+				else if (courseCode == "DB2"){
+					System.out.println("2");
+					request.setAttribute("courseCode",courseCode);
+					request.setAttribute("courseTitle",courseTitle);
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("courseStudent.jsp");
+					System.out.println("4");
+					requestDispatcher.forward(request, response);
+				}
+				}
 			}
 			
 			
 		}
-	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
