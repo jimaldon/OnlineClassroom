@@ -16,4 +16,3 @@ public class DatabaseConstants {
 	public static final String DB_PASSWORD = "toor";
 }
 
-
