@@ -19,11 +19,11 @@ public class UserDBAO extends DatabaseUtil {
 	String updateUserProfile = "update users_profile set FirstName = ?, LastName = ?, Gender = ?, Address = ?, City = ?, Country = ?, Email = ?, Telephone = ?, PostalCode = ?, Birthday_Month = ?"
 			+ ", Birthday_year = ?, Birthday_Date = ?, ProfileInfo = ? where upper(LoginName) = ? ";
 	
-	String getListOfAllUsers ="select FirstName, LastName, Gender, Address, City, Country, Email, Telephone,"
-			+ " PostalCode, Birthday_Month, Birthday_year, Birthday_Date, ProfileInfo from users_profile";
+	String getListOfAllUsers ="select LoginName,FirstName, LastName, Gender, Address, City, Country, Email, Telephone,"
+			+ " PostalCode, Birthday_Month, Birthday_year, Birthday_Date, ProfileInfo,UserType from users_profile";
 	
-	String getListOfUsersByUserType ="select FirstName, LastName, Gender, Address, City, Country, Email, Telephone,"
-			+ " PostalCode, Birthday_Month, Birthday_year, Birthday_Date, ProfileInfo from users_profile where UserType= ?";
+	String getListOfUsersByUserType ="select LoginName,FirstName, LastName, Gender, Address, City, Country, Email, Telephone,"
+			+ " PostalCode, Birthday_Month, Birthday_year, Birthday_Date, ProfileInfo,UserType from users_profile where UserType= ?";
 	
 	public Users authenticate(String userId, String password) {
 		try {
