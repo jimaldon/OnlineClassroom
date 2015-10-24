@@ -2,6 +2,7 @@ package com.ntu.learn.inetprog.database;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import com.ntu.learn.inetprog.model.Users;
 
@@ -17,6 +18,12 @@ public class UserDBAO extends DatabaseUtil {
 	
 	String updateUserProfile = "update users_profile set FirstName = ?, LastName = ?, Gender = ?, Address = ?, City = ?, Country = ?, Email = ?, Telephone = ?, PostalCode = ?, Birthday_Month = ?"
 			+ ", Birthday_year = ?, Birthday_Date = ?, ProfileInfo = ? where upper(LoginName) = ? ";
+	
+	String getListOfAllUsers ="select FirstName, LastName, Gender, Address, City, Country, Email, Telephone,"
+			+ " PostalCode, Birthday_Month, Birthday_year, Birthday_Date, ProfileInfo from users_profile";
+	
+	String getListOfUsersByUserType ="select FirstName, LastName, Gender, Address, City, Country, Email, Telephone,"
+			+ " PostalCode, Birthday_Month, Birthday_year, Birthday_Date, ProfileInfo from users_profile where UserType= ?";
 	
 	public Users authenticate(String userId, String password) {
 		try {
@@ -102,6 +109,64 @@ public class UserDBAO extends DatabaseUtil {
 			throw new Exception(e);
 		}
 		return user;
+	}
+	
+	public ArrayList<Users> getListOfAllUsers(){
+		ArrayList<Users> listofAllUsers = new ArrayList<Users>();
+		try {
+			
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(
+					this.getListOfAllUsers);
+		
+			ResultSet rs = prepStmt.executeQuery();
+
+			while (rs.next()) {
+				Users user = new Users();
+				user.setLoginName(rs.getString("LoginName"));
+				user.setTypeOfUser(rs.getString("UserType"));
+				user.setFirstName(rs.getString("FirstName"));
+				user.setEmail(rs.getString("Email"));
+				user.setTelephone(rs.getString("Telephone"));
+				user.setPostalCode(rs.getString("PostalCode"));
+				listofAllUsers.add(user);
+			}
+			
+		} catch (Exception e) {
+			System.err.println("=== Error in User Authentication ===== ");
+			e.printStackTrace();
+			return null;
+		}
+		return listofAllUsers;
+		
+	}
+	
+	public ArrayList<Users> getListOfUsersByTypeId(){
+		ArrayList<Users> listofAllUsersByTypeId = new ArrayList<Users>();
+		try {
+			
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(
+					this.getListOfUsersByUserType);
+		
+			ResultSet rs = prepStmt.executeQuery();
+
+			while (rs.next()) {
+				Users user = new Users();
+				user.setLoginName(rs.getString("LoginName"));
+				user.setTypeOfUser(rs.getString("UserType"));
+				user.setFirstName(rs.getString("FirstName"));
+				user.setEmail(rs.getString("Email"));
+				user.setTelephone(rs.getString("Telephone"));
+				user.setPostalCode(rs.getString("PostalCode"));
+				listofAllUsersByTypeId.add(user);
+			}
+			
+		} catch (Exception e) {
+			System.err.println("=== Error in User Authentication ===== ");
+			e.printStackTrace();
+			return null;
+		}
+		return listofAllUsersByTypeId;
+		
 	}
 	
 }
