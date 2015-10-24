@@ -140,13 +140,13 @@ public class UserDBAO extends DatabaseUtil {
 		
 	}
 	
-	public ArrayList<Users> getListOfUsersByTypeId(){
+	public ArrayList<Users> getListOfUsersByTypeId(String UserType){
 		ArrayList<Users> listofAllUsersByTypeId = new ArrayList<Users>();
 		try {
 			
 			PreparedStatement prepStmt = getDBConnection().prepareStatement(
 					this.getListOfUsersByUserType);
-		
+			prepStmt.setString(1, UserType);
 			ResultSet rs = prepStmt.executeQuery();
 
 			while (rs.next()) {
