@@ -70,6 +70,8 @@ CREATE TABLE `course_enrolls` (
   CONSTRAINT `fk_Enrolls_Students` FOREIGN KEY (`LoginName`) REFERENCES `users_profile` (`LoginName`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ alter table course_enrolls add enroll_status varchar(2) default 'P';
+
 insert into course_enrolls values (1,'shankara');
 insert into course_enrolls values (2,'shankara');
 commit;

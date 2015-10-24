@@ -43,7 +43,11 @@
 		<div class="container">
 			<h3>My Courses</h3>
 			<div id="port" class="container portfolio-main">
-
+				<div>
+					<c:if test="${not empty message }">
+						<span style="color: red;">${message }</span>
+					</c:if>
+				</div>
 				<div id="portfoliolist">
 				<c:forEach var="courses" items="${lstCourses }">
 					<div class="portfolio logo1 mix_all" data-cat="logo"

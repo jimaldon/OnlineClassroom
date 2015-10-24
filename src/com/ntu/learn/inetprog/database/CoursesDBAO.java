@@ -11,7 +11,7 @@ public class CoursesDBAO extends DatabaseUtil {
 
 	String getAllCourseByCategorySql = "select CourseCode, Title, shortDescription, course_Month, course_Date, course_year, comments, likes, author from courses co join course_category cc on co.coursecategoryid = cc.categoryId where upper(cc.description) = ? ";
 
-	String getAllCourseByUserSql = "select CourseCode, Title, shortDescription, course_Month, course_Date, course_year, comments, likes, author from courses co join course_enrolls ce on co.CourseID = ce.CourseID where  upper(ce.LoginName) = ? ";
+	String getAllCourseByUserSql = "select CourseCode, Title, shortDescription, course_Month, course_Date, course_year, comments, likes, author from courses co join course_enrolls ce on co.CourseID = ce.CourseID where  upper(ce.LoginName) = ? and ce.enroll_status='A' ";
 
 	String getCourseByCourseId = " select co.CourseCode, co.Title, co.shortDescription, "
 			+ "co.course_Month, co.course_Date, co.course_year, co.comments, co.likes, co.author , "
