@@ -74,9 +74,13 @@
 			<li><img src="images/slider-img1.jpg" alt="">
 			<li><img src="images/slider-img2.jpg" alt="">
 			<li><img src="images/slider-img3.jpg" alt="">
+			<li><img src="images/slider-img4.jpg" alt="">
+			<li><img src="images/slider-img5.jpg" alt="">
 		</ul>
 		<!-- Slideshow -->
 		<ul id="slider3-pager">
+			<li><a href="#"><span> </span></a></li>
+			<li><a href="#"><span> </span></a></li>
 			<li><a href="#"><span> </span></a></li>
 			<li><a href="#"><span> </span></a></li>
 			<li><a href="#"><span> </span></a></li>

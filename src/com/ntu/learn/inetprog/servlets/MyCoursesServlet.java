@@ -44,6 +44,7 @@ public class MyCoursesServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
+		
 		if(user == null || "".equals(user)) {
 			response.sendRedirect("login.jsp");
 		} else {
@@ -58,16 +59,14 @@ public class MyCoursesServlet extends HttpServlet {
 				CoursesDBAO courseDBAO = new CoursesDBAO();
 				List<Courses> lstCourses = courseDBAO.getAllCourseByUserName(user.toUpperCase());
 				if(lstCourses.isEmpty()) {
-					request.setAttribute("message", "You do not course enrolled or You enrolled course yet to approve");
+					request.setAttribute("message", "You're either not enrolled in any course or your enrolled course is yet to be approved.");
 				} else {
 					request.setAttribute("lstCourses", lstCourses);
 				}
-				
-				
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("mycourses.jsp");
 				requestDispatcher.forward(request, response);
 			} else {
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("coursedetails.jsp");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("courseStudent.jsp");
 				requestDispatcher.forward(request, response);
 			}
 			
