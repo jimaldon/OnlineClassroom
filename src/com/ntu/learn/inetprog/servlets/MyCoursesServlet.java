@@ -57,7 +57,12 @@ public class MyCoursesServlet extends HttpServlet {
 				
 				CoursesDBAO courseDBAO = new CoursesDBAO();
 				List<Courses> lstCourses = courseDBAO.getAllCourseByUserName(user.toUpperCase());
-				request.setAttribute("lstCourses", lstCourses);
+				if(lstCourses.isEmpty()) {
+					request.setAttribute("message", "You do not course enrolled or You enrolled course yet to approve");
+				} else {
+					request.setAttribute("lstCourses", lstCourses);
+				}
+				
 				
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("mycourses.jsp");
 				requestDispatcher.forward(request, response);

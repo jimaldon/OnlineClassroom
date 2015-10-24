@@ -29,4 +29,10 @@ public class OnlineCSRoomConstants {
 	 */
 	public static final String FLAG_YES = "Y";
 	public static final String FLAG_NO = "N";
+	
+	/**
+	 * Enroll Status Flag
+	 */
+	public static final String REJECTED = "R";
+	public static final String PENDING = "P";
 }

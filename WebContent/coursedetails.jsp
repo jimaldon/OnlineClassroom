@@ -133,7 +133,7 @@
 			<h2>${course.courseTitle }</h2>
 			<p>Your course request will be submit to administrator</p>
 			<div class="post-bottom-right">
-				<a class="artbtn artbtn1" href="home.jsp">Enroll</a>
+				<a class="artbtn artbtn1" href="EnrollCourseServlet?courseCode=${course.courseCode }">Enroll</a>
 			</div>
 			<div class="clearfix"></div>
 		</div>
