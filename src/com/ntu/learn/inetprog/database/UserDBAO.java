@@ -25,6 +25,8 @@ public class UserDBAO extends DatabaseUtil {
 	String getListOfUsersByUserType ="select LoginName,FirstName, LastName, Gender, Address, City, Country, Email, Telephone,"
 			+ " PostalCode, Birthday_Month, Birthday_year, Birthday_Date, ProfileInfo,UserType from users_profile where UserType= ?";
 	
+	String getListOfUserType ="select distinct(UserType) from users_profile";
+	
 	public Users authenticate(String userId, String password) {
 		try {
 			String selectStatement = "select LoginName, UserType, IsDeleted "
@@ -111,12 +113,12 @@ public class UserDBAO extends DatabaseUtil {
 		return user;
 	}
 	
-	public ArrayList<Users> getListOfAllUsers(){
+	public ArrayList<Users> getListOfUserType(){
 		ArrayList<Users> listofAllUsers = new ArrayList<Users>();
 		try {
 			
 			PreparedStatement prepStmt = getDBConnection().prepareStatement(
-					this.getListOfAllUsers);
+					this.getListOfUserType);
 		
 			ResultSet rs = prepStmt.executeQuery();
 
@@ -166,6 +168,34 @@ public class UserDBAO extends DatabaseUtil {
 			return null;
 		}
 		return listofAllUsersByTypeId;
+		
+	}
+	public ArrayList<Users> getListOfAllUsers(){
+		ArrayList<Users> listofAllUsers = new ArrayList<Users>();
+		try {
+			
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(
+					this.getListOfAllUsers);
+		
+			ResultSet rs = prepStmt.executeQuery();
+
+			while (rs.next()) {
+				Users user = new Users();
+				user.setLoginName(rs.getString("LoginName"));
+				user.setTypeOfUser(rs.getString("UserType"));
+				user.setFirstName(rs.getString("FirstName"));
+				user.setEmail(rs.getString("Email"));
+				user.setTelephone(rs.getString("Telephone"));
+				user.setPostalCode(rs.getString("PostalCode"));
+				listofAllUsers.add(user);
+			}
+			
+		} catch (Exception e) {
+			System.err.println("=== Error in User Authentication ===== ");
+			e.printStackTrace();
+			return null;
+		}
+		return listofAllUsers;
 		
 	}
 	
