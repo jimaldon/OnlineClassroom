@@ -35,4 +35,10 @@ public class OnlineCSRoomConstants {
 	 */
 	public static final String REJECTED = "R";
 	public static final String PENDING = "P";
+	
+	/**
+	 * Display UI Status 
+	 */
+	public static final String SUCCESS = "Success";
+	public static final String FAILED = "Failed";
 }

@@ -66,8 +66,8 @@ public class MyCoursesServlet extends HttpServlet {
 				}
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("mycourses.jsp");
 				requestDispatcher.forward(request, response);
-			} else {
-				
+			} else if(courseCode != null && !"".equalsIgnoreCase(courseCode)){
+				System.out.println("==== Redirecting to Course Student Page ===== ");
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("courseStudent.jsp");
 				requestDispatcher.forward(request, response);
 				

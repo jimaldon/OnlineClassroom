@@ -1,3 +1,4 @@
+
 package com.ntu.learn.inetprog.servlets;
 
 import java.io.IOException;
@@ -107,7 +108,7 @@ public class LoginServlet extends HttpServlet {
 				} else if (user.getTypeOfUser().equalsIgnoreCase(
 						OnlineCSRoomConstants.USER_ROLE_ADMIN)) {
 					lstMenu.add(new Menu("AdminUserServlet", OnlineCSRoomConstants.MENU_ADMIN_USER));
-					//lstMenu.add(new Menu("", OnlineCSRoomConstants.MENU_ADMIN_COURSE));
+					lstMenu.add(new Menu("AdminCoursesServlet", OnlineCSRoomConstants.MENU_ADMIN_COURSE));
 					lstMenu.add(new Menu("LogoutServlet",OnlineCSRoomConstants.MENU_SIGN_OUT));
 				}
 	
