@@ -67,11 +67,17 @@ public class MyCoursesServlet extends HttpServlet {
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("mycourses.jsp");
 				requestDispatcher.forward(request, response);
 			} else {
-				
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("courseStudent.jsp");
-				requestDispatcher.forward(request, response);
+				Courses c = courseDBAO.getCourseByCourseId(courseCode);
+				String courseTitle = c.getCourseTitle();
+					request.setAttribute("courseCode", courseCode);
+					request.setAttribute("courseTitle", courseTitle);
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("courseStudent.jsp");
+					requestDispatcher.forward(request, response);	
 				
 				}
+				
+				
+				
 			}
 			
 			
