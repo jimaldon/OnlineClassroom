@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Find Courses</title>
+<title>Online Class Room</title>
 
 <script src="js/jquery.min.js"></script>
 
@@ -25,7 +25,8 @@
 			style="padding-left: 0px; padding-right: 0px; margin-left: 100px; margin-right: 0px; width: 1500px;">
 			<div class="logo" title="logo"></div>
 			<nav class="top-nav">
-				<ul class="top-nav">
+				<ul class="top-nav" style="
+    width: 1000px;">
 					<c:forEach items="${lstMenu}" var="menu">
 						<li class="page-scroll"><a href=${menu.menuURL
 							}
@@ -38,20 +39,45 @@
 		</div>
 	</div>
 	<div class="clearfix"></div>
-	
-		<div id="services" class="services">
+
+
+		<div id="blog" class="blog">
 			<div class="container">
-				<h3>Find Users By Type</h3>
-				<!----start-servicves-list---->
-				<div class="services-list text-center">
-					
+				<h3>User Types</h3>
+
+	<c:forEach var="usertype" items="${listofusertype }">
+				<!---->
+				<div class="col-md-4 artical-row2">
+					<!----start-artical-info---->
+					<div class="artical-info">
+						<div class="post-head post-head1">
+							<div class="post-head-left">
+								<h4>
+									<a href="FindUsersServlet?userTypeId=${usertype.userType }">${usertype.profileInfo }</a>	
+								</h4>
+								<p class="author">
+									By <a href="#"> ${usertype.userType}</a>
+								</p>
+
+							</div>
+							
+							<div class="clearfix"></div>
+						</div>
+						
+						<div class="post-bottom">
+							
+							<div class="post-bottom-right">
+								<a class="artbtn artbtn1" href="FindUsersServlet?userTypeId=${usertype.userType }">Read More</a>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
 				</div>
-				<!----//End-servicves-list---->
+				
+				</c:forEach>
 			</div>
 		</div>
 
-
-	
 
 	<div class="clearfix"></div>
 

@@ -26,7 +26,7 @@ public class UserDBAO extends DatabaseUtil {
 	String getListOfUsersByUserType ="select LoginName,FirstName, LastName, Gender, Address, City, Country, Email, Telephone,"
 			+ " PostalCode, Birthday_Month, Birthday_year, Birthday_Date, ProfileInfo,UserType from users_profile where UserType= ?";
 	
-	String getListOfUserType ="select distinct(UserType) from users_profile";
+	String getListOfUserType ="select distinct(UserType),ProfileInfo from users_profile";
 	
 	public Users authenticate(String userId, String password) {
 		try {
