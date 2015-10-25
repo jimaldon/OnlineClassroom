@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.ntu.learn.inetprog.model.UserType;
 import com.ntu.learn.inetprog.model.Users;
 
 /**
@@ -113,8 +114,8 @@ public class UserDBAO extends DatabaseUtil {
 		return user;
 	}
 	
-	public ArrayList<Users> getListOfUserType(){
-		ArrayList<Users> listofAllUsers = new ArrayList<Users>();
+	public ArrayList<UserType> getListOfUserType(){
+		ArrayList<UserType> listofUserTypes = new ArrayList<UserType>();
 		try {
 			
 			PreparedStatement prepStmt = getDBConnection().prepareStatement(
@@ -123,23 +124,20 @@ public class UserDBAO extends DatabaseUtil {
 			ResultSet rs = prepStmt.executeQuery();
 
 			while (rs.next()) {
-				Users user = new Users();
-				user.setLoginName(rs.getString("LoginName"));
-				user.setTypeOfUser(rs.getString("UserType"));
-				user.setFirstName(rs.getString("FirstName"));
-				user.setEmail(rs.getString("Email"));
-				user.setTelephone(rs.getString("Telephone"));
-				user.setPostalCode(rs.getString("PostalCode"));
-				listofAllUsers.add(user);
+				UserType userType = new UserType();
+				userType.setProfileInfo(rs.getString("ProfileInfo"));
+				userType.setUserType(rs.getString("UserType"));
+				listofUserTypes.add(userType);
+				
 			}
+			return listofUserTypes;
 			
 		} catch (Exception e) {
 			System.err.println("=== Error in User Authentication ===== ");
 			e.printStackTrace();
 			return null;
 		}
-		return listofAllUsers;
-		
+				
 	}
 	
 	public ArrayList<Users> getListOfUsersByTypeId(String UserType){
