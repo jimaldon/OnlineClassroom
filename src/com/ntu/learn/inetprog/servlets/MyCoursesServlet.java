@@ -67,26 +67,10 @@ public class MyCoursesServlet extends HttpServlet {
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("mycourses.jsp");
 				requestDispatcher.forward(request, response);
 			} else {
-				System.out.println("5");
-				Courses course = courseDBAO.getCourseByCourseId(courseCode);
-				String courseTitle=course.getCourseTitle();
-				System.out.println("6");
-				if(courseCode =="DB1"){
-					System.out.println("1");
-					request.setAttribute("courseCode",courseCode);
-					request.setAttribute("courseTitle",courseTitle);
-					System.out.println("3");
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("courseStudent.jsp");
-					requestDispatcher.forward(request, response);
-				}
-				else if (courseCode == "DB2"){
-					System.out.println("2");
-					request.setAttribute("courseCode",courseCode);
-					request.setAttribute("courseTitle",courseTitle);
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("courseStudent.jsp");
-					System.out.println("4");
-					requestDispatcher.forward(request, response);
-				}
+				
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("courseStudent.jsp");
+				requestDispatcher.forward(request, response);
+				
 				}
 			}
 			
