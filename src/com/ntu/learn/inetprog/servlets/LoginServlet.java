@@ -110,6 +110,12 @@ public class LoginServlet extends HttpServlet {
 					lstMenu.add(new Menu("AdminUserServlet", OnlineCSRoomConstants.MENU_ADMIN_USER));
 					lstMenu.add(new Menu("AdminCoursesServlet", OnlineCSRoomConstants.MENU_ADMIN_COURSE));
 					lstMenu.add(new Menu("LogoutServlet",OnlineCSRoomConstants.MENU_SIGN_OUT));
+				} else if(user.getTypeOfUser().equalsIgnoreCase(OnlineCSRoomConstants.USER_ROLE_STAFF)) {
+					lstMenu.add(new Menu("MyClassServlet",OnlineCSRoomConstants.MENU_TUTOR_COURSE));
+					lstMenu.add(new Menu("",OnlineCSRoomConstants.MENU_TUTOR_BLOG));
+					lstMenu.add(new Menu("MyProfileServlet",
+							OnlineCSRoomConstants.MENU_MY_PROFILE));
+					lstMenu.add(new Menu("LogoutServlet",OnlineCSRoomConstants.MENU_SIGN_OUT));
 				}
 	
 				request.setAttribute("lstMenu", lstMenu);

@@ -25,6 +25,8 @@ public class CoursesDBAO extends DatabaseUtil {
 	
 	String updateEnrolledCourse = "update course_enrolls set enroll_status=? where loginName=? and courseId=?";
 	
+	String getMyClassCourses = "select co.title, cc.Description, co.CourseID , co.likes from courses co join course_category cc on co.CoursecategoryId = cc.categoryId  where upper(co.author) = ?";
+	
 	public List<Courses> getAllCourseByCategory(String categoryName) {
 		try {
 
@@ -167,5 +169,30 @@ public class CoursesDBAO extends DatabaseUtil {
 			e.printStackTrace();
 		}
 		return  status;
+	}
+	
+	public List<Courses> getMyClassCourses(String loginName) {
+		try {
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(getMyClassCourses);
+			
+			prepStmt.setString(1, loginName);
+			
+			System.out.println(" SQL Going to Fire "+prepStmt.toString());
+			
+			ResultSet rs = prepStmt.executeQuery();
+			List<Courses> lstCourses = new ArrayList<Courses>();
+			while(rs.next()) {
+				Courses course = new Courses();
+				course.setCourseId(rs.getString("CourseID"));
+				course.setCourseTitle(rs.getString("title"));
+				course.setLikes(rs.getString("likes"));
+				course.setCourseCategory(rs.getString("Description"));
+				lstCourses.add(course);
+			}
+			return lstCourses;
+		} catch (Exception e ) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

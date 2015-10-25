@@ -22,7 +22,10 @@ public class OnlineCSRoomConstants {
 	public static final String MENU_MY_COURSE = "My Course";
 	public static final String MENU_FIND_COURSE= "Find Course";
 	public static final String MENU_ADMIN_USER = "User Admin";
-	public static final String MENU_ADMIN_COURSE = "Courses";
+	public static final String MENU_ADMIN_COURSE = "Enrollment Courses";
+	public static final String MENU_TUTOR_COURSE = "My Class";
+	public static final String MENU_TUTOR_BLOG = "Class Blogs";
+	
 	
 	/**
 	 * General Yes or No Flag

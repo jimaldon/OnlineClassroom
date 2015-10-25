@@ -9,8 +9,6 @@
 
 <script src="js/jquery.min.js"></script>
 <script src="js/responsiveslides.min.js"></script>
-<script src="js/jquery.dataTables.min.js"></script>
-<script src="js/onlineclass.js"></script>
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
 <link rel="shortcut icon" href="images/favicon.ico" />
@@ -18,15 +16,8 @@
 <link rel="stylesheet" type="text/css" href="css/testmonial.css" />
 <link rel="stylesheet" type="text/css" href="css/theme-style.css" />
 <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Online Class Room</title>
 </head>
 <body>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#enrolltable').DataTable();
-		});
-	</script>
 	<div id="home" class="header scroll">
 		<div class="container"
 			style="padding-left: 0px; padding-right: 0px; margin-left: 100px; margin-right: 0px; width: 1500px;">
@@ -48,7 +39,7 @@
 	<div class="clearfix"></div>
 	<div id="port" class="portfolio portfolio-box">
 		<div class="container">
-			<h3>Student Enrollment Request</h3>
+			<h3>My Class Course</h3>
 		</div>
 		<div
 			style="padding-left: 175px; padding-right: 150px; padding-top: 50px; padding-bottom: 50px;">
@@ -57,31 +48,25 @@
 
 				<tr align="center">
 					<th>S/No</th>
-					<th>User Name</th>
-					<th>Login Id</th>
 					<th>Course Title</th>
-					<th>Course Author</th>
-					<th>Status</th>
-					<th>Action</th>
-
+					<th>Course Category</th>
+					<th>No of Likes</th>
 				</tr>
 
-				<c:forEach var="enrolledCourse" items="${lstEnrolledCourses }"
+				<c:forEach var="courses" items="${lstCourses }"
 					varStatus="loop">
 					<tr>
 						<td>${loop.index +1}</td>
-						<td>${enrolledCourse.userName }</td>
-						<td>${enrolledCourse.loginName}</td>
-						<td>${enrolledCourse.courseTitle}</td>
-						<td>${enrolledCourse.courseAuthor}</td>
-						<td>${enrolledCourse.courseStatus}</td>
-						<td id="result${loop.index +1}" colspan="2"><span
+						<td>${courses.courseTitle }</td>
+						<td>${courses.courseCategory}</td>
+						<td>${courses.likes}</td>
+						<%-- <td id="result${loop.index +1}" colspan="2"><span
 							class="submit-btn"> <input type="button" value="Reject"
 								onclick="approveOrRejectEnrolledCourse('${enrolledCourse.loginName}', '${enrolledCourse.courseId }' ,'R','result${loop.index +1}' )">
 						</span> &nbsp; <span class="submit-btn"> <input type="button"
 								value="Approve"
 								onclick="approveOrRejectEnrolledCourse('${enrolledCourse.loginName}', '${enrolledCourse.courseId }' ,'A','result${loop.index +1}')">
-						</span></td>
+						</span></td> --%>
 					</tr>
 
 
