@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ntu.learn.inetprog.database.UserDBAO;
 import com.ntu.learn.inetprog.model.Menu;
+import com.ntu.learn.inetprog.model.UserType;
 import com.ntu.learn.inetprog.model.Users;
 
 /**
@@ -47,10 +48,10 @@ public class AdminUserServlet extends HttpServlet {
 			request.setAttribute("lstMenu", lstMenu);
 			
 			UserDBAO userDBAO = new UserDBAO();
-			ArrayList<Users> lstUsers = userDBAO.getListOfAllUsers();
-			System.out.println("The arraylist size is="+lstUsers.size());
+			ArrayList<UserType> lstUserType = userDBAO.getListOfUserType();
+			System.out.println("The arraylist size is="+lstUserType.size());
 			
-			request.setAttribute("alluserslist", lstUsers);
+			request.setAttribute("listofusertype", lstUserType);
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("searchuser.jsp");
 			requestDispatcher.forward(request, response);
