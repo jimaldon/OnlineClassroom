@@ -56,7 +56,7 @@
 									<a href="FindUsersServlet?userTypeId=${usertype.userType }">${usertype.profileInfo }</a>	
 								</h4>
 								<p class="author">
-									By <a href="#"> ${usertype.userType}</a>
+									Type Id is <a href="#"> ${usertype.userType}</a>
 								</p>
 
 							</div>
