@@ -44,6 +44,7 @@ public class MyCoursesServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
+		CoursesDBAO courseDBAO = new CoursesDBAO();
 		if(user == null || "".equals(user)) {
 			response.sendRedirect("login.jsp");
 		} else {
@@ -55,25 +56,27 @@ public class MyCoursesServlet extends HttpServlet {
 				List<Menu> lstMenu = (List<Menu>) session.getAttribute("lstMenu");
 				request.setAttribute("lstMenu", lstMenu);
 				
-				CoursesDBAO courseDBAO = new CoursesDBAO();
+				
 				List<Courses> lstCourses = courseDBAO.getAllCourseByUserName(user.toUpperCase());
+				
 				if(lstCourses.isEmpty()) {
-					request.setAttribute("message", "You do not course enrolled or You enrolled course yet to approve");
+					request.setAttribute("message", "You're either not enrolled in any course or your enrolled course is yet to be approved.");
 				} else {
 					request.setAttribute("lstCourses", lstCourses);
 				}
-				
-				
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("mycourses.jsp");
 				requestDispatcher.forward(request, response);
-			} else {
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("coursedetails.jsp");
+			} else if(courseCode != null && !"".equalsIgnoreCase(courseCode)){
+				System.out.println("==== Redirecting to Course Student Page ===== ");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("courseStudent.jsp");
 				requestDispatcher.forward(request, response);
+				
+				}
 			}
 			
 			
 		}
-	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

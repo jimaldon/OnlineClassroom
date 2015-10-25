@@ -54,7 +54,7 @@
 						style="display: inline-block; opacity: 1;">
 						<div class="portfolio-wrapper">
 							<a data-toggle="modal" data-target=".bs-example-modal-md"
-								href="#" class="b-link-stripe b-animate-go  thickbox"> <img
+								href="MyCoursesServlet?courseCode=${courses.courseCode }" class="b-link-stripe b-animate-go  thickbox"> <img
 								class="p-img" src="images/p3.jpg" />
 							</a>
 						</div>
