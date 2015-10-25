@@ -10,6 +10,7 @@ import com.ntu.learn.inetprog.model.Users;
 /**
  * 
  * @author shankara
+ * @co-author Kailash Shankar
  *
  */
 public class UserDBAO extends DatabaseUtil {
@@ -27,6 +28,9 @@ public class UserDBAO extends DatabaseUtil {
 			+ " PostalCode, Birthday_Month, Birthday_year, Birthday_Date, ProfileInfo,UserType from users_profile where UserType= ?";
 	
 	String getListOfUserType ="select distinct(UserType),ProfileInfo from users_profile";
+	
+	String getUserProfileByAdmin =  "select Password,FirstName, LastName, Gender, Address, City, Country, Email, Telephone,"
+			+ " PostalCode, Birthday_Month, Birthday_year, Birthday_Date, ProfileInfo,UserType,IsDeleted from users_profile where upper(LoginName) = ? ";
 	
 	public Users authenticate(String userId, String password) {
 		try {
@@ -196,6 +200,38 @@ public class UserDBAO extends DatabaseUtil {
 		}
 		return listofAllUsers;
 		
+	}
+	public Users getUserProfileByAdmin(String userId) {
+		try {
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(
+					getUserProfileByAdmin);
+			prepStmt.setString(1, userId);
+			ResultSet rs = prepStmt.executeQuery();
+			System.out.println("=== SQL Firing to Database " + getUserProfile);
+			System.out.println("=== SQL Parameters " + userId);
+			if (rs.next()) {
+				Users user = new Users();
+				user.setPassword(rs.getString("Password"));
+				user.setFirstName(rs.getString("FirstName"));
+				user.setLastName(rs.getString("LastName"));
+				user.setGender(rs.getString("Gender"));
+				user.setbDate(rs.getString("Birthday_Date"));
+				user.setbYear(rs.getString("Birthday_year"));
+				user.setbMonth(rs.getString("Birthday_Month"));
+				user.setAboutMe(rs.getString("ProfileInfo"));
+				user.setEmail(rs.getString("Email"));
+				user.setAddress(rs.getString("Address"));
+				user.setPostalCode(rs.getString("PostalCode"));
+				user.setCity(rs.getString("City"));
+				user.setCountry(rs.getString("Country"));
+				user.setTypeOfUser(rs.getString("UserType"));
+				user.setIsDeleted(rs.getString("IsDeleted"));
+				return user;
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }

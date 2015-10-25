@@ -48,6 +48,7 @@
 	<form action="MyProfileServlet" method="post">
 
 		<table border="1" style="width:100%">
+		<caption>Users List</caption>
 			<tr>
 			    <th>Login Name</th>
 			    <th>First Name</th>		
@@ -60,8 +61,8 @@
 			<c:forEach items="${listofusers}" var="user">
 			<tr>
 				<td>
-				<a href=${user.loginName
-							}
+				<a href="UserProfileServlet?userTypeId=${user.loginName}"
+							
 							class="scroll" style="width: 200px; height: 50px;">${user.loginName}</a>
 				</td>
 				<td>
@@ -70,16 +71,16 @@
 				<td>
 			    ${user.lastName}
 				</td>
-				<td>
+				<td style="text-align:center">
 			    ${user.typeOfUser}
 				</td>
-				<td>
+				<td style="text-align:center">
 				${user.telephone}
 				</td>	
 				<td>
 				${user.email}
 				</td>
-				<td>
+				<td style="text-align:center">
 				${user.postalCode}
 				</td>		
 			</tr>
