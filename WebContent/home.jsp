@@ -54,7 +54,8 @@
 			style="padding-left: 0px; padding-right: 0px; margin-left: 100px; margin-right: 0px; width: 1500px;">
 			<div class="logo" title="logo"></div>
 			<nav class="top-nav">
-				<ul class="top-nav">
+				<ul class="top-nav" style="
+    width: 1000px;">
 					<c:forEach items="${lstMenu}" var="menu">
 						<li class="page-scroll"><a href=${menu.menuURL
 							}

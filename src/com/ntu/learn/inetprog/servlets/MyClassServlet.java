@@ -1,7 +1,6 @@
 package com.ntu.learn.inetprog.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,21 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ntu.learn.inetprog.database.UserDBAO;
-import com.ntu.learn.inetprog.model.Menu;
-import com.ntu.learn.inetprog.model.Users;
+import com.ntu.learn.inetprog.database.CoursesDBAO;
+import com.ntu.learn.inetprog.model.Courses;
 
 /**
- * Servlet implementation class AdminUserServlet
+ * Servlet implementation class MyClassServlet
  */
-@WebServlet("/AdminUserServlet")
-public class AdminUserServlet extends HttpServlet {
+@WebServlet("/MyClassServlet")
+public class MyClassServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminUserServlet() {
+    public MyClassServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,28 +33,22 @@ public class AdminUserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("==== Loading Admin User Servlet DoGet Method ===== ");
+		System.out.println(" ==== Loading My Class Servlet  ===== ");
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
-		if(user == null || "".equals(user)) {
+
+		if (user == null) {
+			System.out.println(" ==== User Object is Null ====== ");
 			response.sendRedirect("login.jsp");
 		} else {
+			CoursesDBAO courseDBAO = new CoursesDBAO();
+			List<Courses> lstCourses = courseDBAO.getMyClassCourses(user.toUpperCase());
 			
-			@SuppressWarnings("unchecked")
-			List<Menu> lstMenu = (List<Menu>) session.getAttribute("lstMenu");
-			request.setAttribute("lstMenu", lstMenu);
+			request.setAttribute("lstCourses", lstCourses);
 			
-			UserDBAO userDBAO = new UserDBAO();
-			ArrayList<Users> lstUsers = userDBAO.getListOfAllUsers();
-			System.out.println("The arraylist size is="+lstUsers.size());
-			
-			request.setAttribute("alluserslist", lstUsers);
-			
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("searchuser.jsp");
-			requestDispatcher.forward(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("myclass.jsp");
+			rd.forward(request, response);
 		}
-		
-		
 	}
 
 	/**
@@ -64,6 +56,7 @@ public class AdminUserServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
