@@ -66,6 +66,7 @@ public class MyCoursesServlet extends HttpServlet {
 				}
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("mycourses.jsp");
 				requestDispatcher.forward(request, response);
+
 			} else {
 				Courses c = courseDBAO.getCourseByCourseId(courseCode);
 				String courseTitle = c.getCourseTitle();
@@ -73,9 +74,7 @@ public class MyCoursesServlet extends HttpServlet {
 					request.setAttribute("courseTitle", courseTitle);
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("courseStudent.jsp");
 					requestDispatcher.forward(request, response);	
-
-				}
-				
+			}				
 				
 				
 			}
