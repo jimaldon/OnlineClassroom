@@ -61,7 +61,7 @@
 			<c:forEach items="${listofusers}" var="user">
 			<tr>
 				<td>
-				<a href="UserProfileServlet?userTypeId=${user.loginName}"
+				<a href="UserProfileServlet?userLoginName=${user.loginName}"
 							
 							class="scroll" style="width: 200px; height: 50px;">${user.loginName}</a>
 				</td>

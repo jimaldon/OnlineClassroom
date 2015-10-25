@@ -52,11 +52,13 @@ public class UserProfileServlet extends HttpServlet {
 					List<Menu> lstMenu = (List<Menu>) session.getAttribute("lstMenu");
 					request.setAttribute("lstMenu", lstMenu);
 					
+					String userLoginName = request.getParameter("userLoginName");
+					
 					UserDBAO userDBAO = new UserDBAO();
-					Users users = userDBAO.getUserProfileByName(user.toUpperCase());
+					Users users = userDBAO.getUserProfileByAdmin(userLoginName);
 					request.setAttribute("profile", users);
 					
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("profile.jsp");
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("userprofile.jsp");
 					requestDispatcher.forward(request, response);
 				}
 	}
@@ -65,8 +67,64 @@ public class UserProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
+		if(user == null || "".equals(user)) {
+			response.sendRedirect("login.jsp");
+		} else {
+			String loginName = request.getParameter("loginName");
+			String password = request.getParameter("password");
+			String firstName = request.getParameter("displayName");
+			String lastName = request.getParameter("lastName");
+			String gender = request.getParameter("gender");
+			String birthDate = request.getParameter("date");
+			String birthMonth = request.getParameter("month");
+			String birthYear = request.getParameter("year");
+			String aboutMe = request.getParameter("aboutMe");
+			String address = request.getParameter("address");
+			String city= request.getParameter("city");
+			String country = request.getParameter("country");
+			String postalCode = request.getParameter("postalCode");
+			String telephone = request.getParameter("telephone");
+			String email = request.getParameter("emailId");
+			String userType = request.getParameter("typeOfUser");
+			String isDeleted = request.getParameter("isDeleted");
+			System.out.println("=== Updating user profile information with following values " + 
+			firstName +"," + lastName +","+gender +"," + birthDate +"," + birthMonth+","+birthYear+","+aboutMe+","
+					+ ""+address+","+country+","+postalCode+","+telephone+","+email);
+			
+			Users users = new Users();
+			users.setPassword(password);
+			users.setFirstName(firstName);
+			users.setLastName(lastName); 
+			users.setCountry(country);
+			users.setCity(city);
+			users.setTelephone(telephone);
+			users.setEmail(email);
+			users.setPostalCode(postalCode);
+			users.setAddress(address);
+			users.setTypeOfUser(userType);
+			users.setIsDeleted(isDeleted);
+			users.setLoginName(loginName);
+			
+			UserDBAO userDBAO = new UserDBAO();
+			boolean updateFlag = true;
+			try {
+				userDBAO.updateUserProfileByAdmin(users);
+			} catch(Exception e) {
+				e.printStackTrace();
+				updateFlag = false;
+			}
+			if(updateFlag) {
+				request.setAttribute("message", "User Profile "+loginName + " Has Been Updated Successfully");
+			} else {
+				request.setAttribute("message", "Oops, There was some error, Please contact Programm Manager..........");
+			}
+			request.setAttribute("profile", users);
+			
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("userprofile.jsp");
+			requestDispatcher.forward(request, response);
+		}
 	}
 
 }
