@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>${courseTitle}</title>
+<title>${requestScope.courseTitle}</title>
 
 
 <script src="js/jquery.min.js"></script>
@@ -107,7 +107,7 @@
 
 <div id="port" class="portfolio portfolio-box">
               <div class="container">
-    <h3>${courseCode}: ${courseTitle }</h3>
+    <h3>${requestScope.courseCode}: ${requestScope.courseTitle }</h3>
     <!----start-portfolio---->
     <div id="port" class="container portfolio-main">
                   <ul id="filters" class="clearfix">
@@ -149,7 +149,7 @@
             <span>Assignment and homework submission</span> </div>
                     </div>
         <div class="portfolio web mix_all" data-cat="web" style="display: inline-block; opacity: 1;">
-                      <div class="portfolio-wrapper"> <a data-toggle="modal" data-target=".bs-example-modal-md" href="#" class="b-link-stripe b-animate-go  thickbox"> <img class="p-img" src="images/p4course.jpg" />
+                      <div class="portfolio-wrapper"> <a data-toggle="modal" data-target=".bs-example-modal-md" href="coursedetails.jsp" class="b-link-stripe b-animate-go  thickbox"> <img class="p-img" src="images/p4course.jpg" />
                         <div class="b-wrapper">
                         <h2 class="b-animate b-from-left b-delay03"><img src="images/link-ico.png" alt=""/></h2>
                       </div>

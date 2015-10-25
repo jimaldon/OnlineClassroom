@@ -8,6 +8,8 @@ public class Courses implements Serializable {
 	
 	private String courseCode;
 	
+	private String courseId;
+	
 	private String courseTitle;
 	
 	private String courseShortDesc;
@@ -29,6 +31,8 @@ public class Courses implements Serializable {
 	private String courseSyallbus;
 	
 	private String videoURL;
+	
+	private String courseCategory;
 
 	public String getCourseTitle() {
 		return courseTitle;
@@ -124,5 +128,21 @@ public class Courses implements Serializable {
 
 	public void setVideoURL(String videoURL) {
 		this.videoURL = videoURL;
+	}
+
+	public String getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
+	}
+
+	public String getCourseCategory() {
+		return courseCategory;
+	}
+
+	public void setCourseCategory(String courseCategory) {
+		this.courseCategory = courseCategory;
 	}
 }

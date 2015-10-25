@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ntu.learn.inetprog.model.Courses;
+import com.ntu.learn.inetprog.model.EnrolledCourseUsers;
 
 public class CoursesDBAO extends DatabaseUtil {
 
@@ -17,6 +18,14 @@ public class CoursesDBAO extends DatabaseUtil {
 			+ "co.course_Month, co.course_Date, co.course_year, co.comments, co.likes, co.author , "
 			+ "cc.AboutCourse, cc.Syllabus, cc.VideoURL from courses co join course_contents cc on co.CourseCode = cc.CourseCode "
 			+ "where upper(co.CourseCode) = ?";
+	
+	String getAllPendingEnrollment = "select up.LoginName, up.firstName,  co.title, co.courseID, co.courseCode, if(ce.enroll_status='P','Pending',ce.enroll_status) as  enroll_status ,co.author"
+			+ " from course_enrolls ce join courses co on ce.CourseID = co.CourseID join users_profile up "
+			+ "on up.loginName = ce.loginName where ce.enroll_status ='P' ";
+	
+	String updateEnrolledCourse = "update course_enrolls set enroll_status=? where loginName=? and courseId=?";
+	
+	String getMyClassCourses = "select co.title, cc.Description, co.CourseID , co.likes from courses co join course_category cc on co.CoursecategoryId = cc.categoryId  where upper(co.author) = ?";
 	
 	public List<Courses> getAllCourseByCategory(String categoryName) {
 		try {
@@ -115,6 +124,75 @@ public class CoursesDBAO extends DatabaseUtil {
 			e.printStackTrace();
 		}
 		
+		return null;
+	}
+	
+	public List<EnrolledCourseUsers> getAllPendingEnrolledCourse() {
+		try {
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(getAllPendingEnrollment);
+			System.out.println(" SQL Going to Fire "+prepStmt.toString());
+			ResultSet rs = prepStmt.executeQuery();
+			
+			List<EnrolledCourseUsers> lstEnrollment = new ArrayList<EnrolledCourseUsers>();
+			while(rs.next()) {
+				EnrolledCourseUsers enrolledUser = new EnrolledCourseUsers();
+				enrolledUser.setCourseAuthor(rs.getString("author"));
+				enrolledUser.setCourseStatus(rs.getString("enroll_status"));
+				enrolledUser.setCourseTitle(rs.getString("title"));
+				enrolledUser.setLoginName(rs.getString("LoginName"));
+				enrolledUser.setUserName(rs.getString("firstName"));
+				enrolledUser.setCourseCode(rs.getString("courseCode"));
+				enrolledUser.setCourseId(rs.getString("courseID"));
+				lstEnrollment.add(enrolledUser);
+			}
+			
+			return lstEnrollment;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public int approveOrRejectEnrolledCourse(String courseId, String userName, String action) {
+		int status = 0;
+		try {
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(updateEnrolledCourse);
+			
+			prepStmt.setString(1, action);
+			prepStmt.setString(2, userName);
+			prepStmt.setString(3, courseId);
+			
+			System.out.println(" SQL Going to Fire "+prepStmt.toString());
+			
+			status = prepStmt.executeUpdate();
+		} catch (Exception e ) {
+			e.printStackTrace();
+		}
+		return  status;
+	}
+	
+	public List<Courses> getMyClassCourses(String loginName) {
+		try {
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(getMyClassCourses);
+			
+			prepStmt.setString(1, loginName);
+			
+			System.out.println(" SQL Going to Fire "+prepStmt.toString());
+			
+			ResultSet rs = prepStmt.executeQuery();
+			List<Courses> lstCourses = new ArrayList<Courses>();
+			while(rs.next()) {
+				Courses course = new Courses();
+				course.setCourseId(rs.getString("CourseID"));
+				course.setCourseTitle(rs.getString("title"));
+				course.setLikes(rs.getString("likes"));
+				course.setCourseCategory(rs.getString("Description"));
+				lstCourses.add(course);
+			}
+			return lstCourses;
+		} catch (Exception e ) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }
