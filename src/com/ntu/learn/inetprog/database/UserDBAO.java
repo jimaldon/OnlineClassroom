@@ -154,6 +154,7 @@ public class UserDBAO extends DatabaseUtil {
 				user.setLoginName(rs.getString("LoginName"));
 				user.setTypeOfUser(rs.getString("UserType"));
 				user.setFirstName(rs.getString("FirstName"));
+				user.setLastName(rs.getString("LastName"));
 				user.setEmail(rs.getString("Email"));
 				user.setTelephone(rs.getString("Telephone"));
 				user.setPostalCode(rs.getString("PostalCode"));

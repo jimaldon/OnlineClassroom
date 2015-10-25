@@ -25,14 +25,48 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
-</body>
-<form action="MyProfileServlet" method="post">
-<table>
-							<tr>
-								<td class="td">Display Name</td>
-								<td class="td"><input type="text" name="displayName"
-									value="${profile.firstName }" style="width: 392.22222px;" /></td>
-							</tr>
-</table>
+	<form action="MyProfileServlet" method="post">
+
+		<table border="1" style="width:100%">
+			<tr>
+			    <th>Login Name</th>
+			    <th>First Name</th>		
+			    <th>Last Name</th>
+			    <th>User Type</th>
+			    <th>Telephone</th>
+			    <th>Email</th>
+			    <th>Postal Code</th>
+	  		</tr>
+			<c:forEach items="${listofusers}" var="user">
+			<tr>
+				<td>
+				<a href=${user.loginName
+							}
+							class="scroll" style="width: 200px; height: 50px;">${user.loginName}</a>
+				</td>
+				<td>
+				${user.firstName}
+				</td>
+				<td>
+			    ${user.lastName}
+				</td>
+				<td>
+			    ${user.typeOfUser}
+				</td>
+				<td>
+				${user.telephone}
+				</td>	
+				<td>
+				${user.email}
+				</td>
+				<td>
+				${user.postalCode}
+				</td>		
+			</tr>
+			</c:forEach>
+							
+		</table>
 </form>
+</body>
+
 </html>
