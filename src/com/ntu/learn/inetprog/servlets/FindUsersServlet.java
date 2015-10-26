@@ -62,6 +62,7 @@ public class FindUsersServlet extends HttpServlet {
 			System.out.println("The arraylist size is="+lstUsers.size());
 			
 			request.setAttribute("listofusers", lstUsers);
+			request.setAttribute("usertype", userType);
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("userslist.jsp");
 			requestDispatcher.forward(request, response);

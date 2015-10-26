@@ -43,12 +43,19 @@
 
 		<div id="blog" class="blog">
 			<div class="container">
-				<h3>User Types</h3>
+				<h3>Users List</h3>
 
 	<form action="MyProfileServlet" method="post">
 
+		<table>
+		<tr>
+		<td> <img class="p-img" src="images/adduser.png" alt="Add User"> <a href="AddUsersServlet?userTypeId=${usertype}"> Add New User</a>
+		</td>
+		</tr>
+		</table>
 		<table border="1" style="width:100%">
 		<caption>Users List</caption>
+		
 			<tr>
 			    <th>Login Name</th>
 			    <th>First Name</th>		

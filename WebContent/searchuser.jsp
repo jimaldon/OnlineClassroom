@@ -55,10 +55,7 @@
 								<h4>
 									<a href="FindUsersServlet?userTypeId=${usertype.userType }">${usertype.profileInfo }</a>	
 								</h4>
-								<p class="author">
-									Type Id is <a href="#"> ${usertype.userType}</a>
-								</p>
-
+								
 							</div>
 							
 							<div class="clearfix"></div>
@@ -67,7 +64,7 @@
 						<div class="post-bottom">
 							
 							<div class="post-bottom-right">
-								<a class="artbtn artbtn1" href="FindUsersServlet?userTypeId=${usertype.userType }">Read More</a>
+								<a class="artbtn artbtn1" href="FindUsersServlet?userTypeId=${usertype.userType }">View List</a>
 							</div>
 							<div class="clearfix"></div>
 						</div>

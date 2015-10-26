@@ -34,6 +34,8 @@ public class UserDBAO extends DatabaseUtil {
 	
 	String updateUserProfileByAdmin = "update users_profile set Password=?,FirstName = ?, LastName = ?, Address = ?, City = ?, Country = ?, Email = ?, Telephone = ?, PostalCode = ?, UserType = ?, IsDeleted=? where upper(LoginName) = ? ";
 	
+	String insertUserProfile = "insert into users_profile (LoginName,Password,FirstName, LastName,  Address, City, Country, Email,Telephone,PostalCode,UserType,IsDeleted) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+	
 	public Users authenticate(String userId, String password) {
 		try {
 			String selectStatement = "select LoginName, UserType, IsDeleted "
@@ -263,6 +265,34 @@ public class UserDBAO extends DatabaseUtil {
 			throw new Exception(e);
 		}
 		return user;
+	}
+	
+	public void insertUserProfile(Users user) throws Exception {
+		try {
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(
+					insertUserProfile);
+			System.out.println("=== SQL that is going to fire ==== "+insertUserProfile);
+			prepStmt.setString(1, user.getLoginName());
+			prepStmt.setString(2, user.getPassword());
+			prepStmt.setString(3, user.getFirstName());
+			prepStmt.setString(4, user.getLastName());
+			prepStmt.setString(5, user.getAddress());
+			prepStmt.setString(6, user.getCity());
+			prepStmt.setString(7, user.getCountry());
+			prepStmt.setString(8, user.getEmail());
+			prepStmt.setString(9, user.getTelephone());
+			prepStmt.setString(10, user.getPostalCode());
+			prepStmt.setString(11, user.getTypeOfUser());
+			prepStmt.setString(12, user.getIsDeleted());
+						
+			prepStmt.execute();
+			System.out.println(prepStmt.toString());
+			
+			
+		} catch(Exception e) {
+			throw new Exception(e);
+		}
+		
 	}
 	
 }
