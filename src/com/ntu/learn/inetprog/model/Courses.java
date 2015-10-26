@@ -1,6 +1,7 @@
 package com.ntu.learn.inetprog.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Courses implements Serializable {
 
@@ -33,6 +34,8 @@ public class Courses implements Serializable {
 	private String videoURL;
 	
 	private String courseCategory;
+	
+	private List<Comments> lstComments;
 
 	public String getCourseTitle() {
 		return courseTitle;
@@ -144,5 +147,13 @@ public class Courses implements Serializable {
 
 	public void setCourseCategory(String courseCategory) {
 		this.courseCategory = courseCategory;
+	}
+
+	public List<Comments> getLstComments() {
+		return lstComments;
+	}
+
+	public void setLstComments(List<Comments> lstComments) {
+		this.lstComments = lstComments;
 	}
 }

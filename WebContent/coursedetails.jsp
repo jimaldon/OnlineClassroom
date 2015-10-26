@@ -25,8 +25,7 @@
 			style="padding-left: 0px; padding-right: 0px; margin-left: 100px; margin-right: 0px; width: 1500px;">
 			<div class="logo" title="logo"></div>
 			<nav class="top-nav">
-				<ul class="top-nav" style="
-    width: 1000px;">
+				<ul class="top-nav" style="width: 1000px;">
 					<c:forEach items="${lstMenu}" var="menu">
 						<li class="page-scroll"><a href=${menu.menuURL
 							}
@@ -49,8 +48,9 @@
 					<figure class="item">
 						<h3>${course.courseTitle }:</h3>
 						<p class="client-says">
-							<span class="left-quit"> &#8220; </span> &nbsp; ${course.courseShortDesc }<span
-								class="right-quit"> &#8221;</span>
+							<span class="left-quit"> &#8220; </span> &nbsp;
+							${course.courseShortDesc }<span class="right-quit">
+								&#8221;</span>
 						</p>
 					</figure>
 
@@ -113,7 +113,7 @@
 					</div>
 				</c:if>
 				<c:if test="${detailviewcourse }">
-				<div class="col-md-3">
+					<div class="col-md-3">
 						<div class="artical-info">
 							<div class="post-head">
 								<div class="post-head-left">
@@ -122,6 +122,22 @@
 									</h4>
 								</div>
 								<div class="clearfix"></div>
+								<div class="post-bottom-center">
+									<br>
+									<table>
+										<c:forEach items="${course.lstComments }" var="comments">
+											<tr>
+												<td><b> ${comments.commentedBy } : </b></td>
+												<td>${comments.commentsValue }</td>
+											</tr>
+
+										</c:forEach>
+										<tr>
+											<td><input type="text"></td>
+											<td><input type="button" value="Comment" onclick=""></td>
+										</tr>
+									</table>
+								</div>
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -151,7 +167,8 @@
 			<h2>${course.courseTitle }</h2>
 			<p>Your course request will be submit to administrator</p>
 			<div class="post-bottom-right">
-				<a class="artbtn artbtn1" href="EnrollCourseServlet?courseCode=${course.courseCode }">Enroll</a>
+				<a class="artbtn artbtn1"
+					href="EnrollCourseServlet?courseCode=${course.courseCode }">Enroll</a>
 			</div>
 			<div class="clearfix"></div>
 		</div>

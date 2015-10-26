@@ -20,3 +20,7 @@ function approveOrRejectEnrolledCourse(loginName, courseCode, action, elementid)
 	req.open("GET", url, true);
 	req.send(null);
 }
+
+function addComments(loginName, comment) {
+	
+}

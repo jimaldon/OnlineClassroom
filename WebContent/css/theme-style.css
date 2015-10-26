@@ -1279,6 +1279,10 @@ p.m_5 {
 .post-bottom-left {
 	float: left;
 }
+
+.post-bottom-center {
+	float: center;
+}
 .post-bottom-left a:hover {
 	text-decoration: none;
 	color: #C00;

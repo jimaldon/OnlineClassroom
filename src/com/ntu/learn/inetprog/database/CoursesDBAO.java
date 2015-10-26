@@ -5,6 +5,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.ntu.learn.inetprog.model.Comments;
 import com.ntu.learn.inetprog.model.Courses;
 import com.ntu.learn.inetprog.model.EnrolledCourseUsers;
 
@@ -108,6 +112,7 @@ public class CoursesDBAO extends DatabaseUtil {
 				course.setCourseDate(rs.getString("course_Date"));
 				course.setCourseMonth(rs.getString("course_Month"));
 				course.setComments(rs.getString("comments"));
+				course.setLstComments(parseJson(course.getComments()));
 				course.setLikes(rs.getString("likes"));
 				course.setAuthor(rs.getString("author"));
 				String syllabus = rs.getString("Syllabus");
@@ -194,5 +199,27 @@ public class CoursesDBAO extends DatabaseUtil {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public List<Comments> parseJson(String jsonValue) {
+		List<Comments> lstComments = new ArrayList<Comments>();
+		try {
+			final JSONObject obj = new JSONObject(jsonValue);
+			final JSONArray geodata = obj.getJSONArray("comments");
+			final int n = geodata.length();
+			for (int i = 0; i < n; ++i) {
+				Comments comment = new Comments();
+				final JSONObject comments = geodata.getJSONObject(i);
+				comment.setCommentedBy(comments.getString("name").toUpperCase());
+				comment.setCommentsValue(comments.getString("comment"));
+				lstComments.add(comment);
+			}
+			
+			return lstComments;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return lstComments;
 	}
 }

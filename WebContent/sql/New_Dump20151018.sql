@@ -198,3 +198,6 @@ Normalization Concepts and Practice
     Practice Problems and Assignment
 
     Assignment: Module 11 Assignment','');
+    commit;
+    
+ alter table courses modify comments longtext
