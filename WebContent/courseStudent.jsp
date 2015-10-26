@@ -149,14 +149,14 @@
             <span>Assignment and homework submission</span> </div>
                     </div>
         <div class="portfolio web mix_all" data-cat="web" style="display: inline-block; opacity: 1;">
-                      <div class="portfolio-wrapper"> <a data-toggle="modal" data-target=".bs-example-modal-md" href="coursedetails.jsp" class="b-link-stripe b-animate-go  thickbox"> <img class="p-img" src="images/p4course.jpg" />
+                      <div class="portfolio-wrapper"> <a data-toggle="modal" data-target=".bs-example-modal-md" href="MyCoursesServlet?detailView=${requestScope.courseCode} " class="b-link-stripe b-animate-go  thickbox"> <img class="p-img" src="images/p4course.jpg" />
                         <div class="b-wrapper">
                         <h2 class="b-animate b-from-left b-delay03"><img src="images/link-ico.png" alt=""/></h2>
                       </div>
                         </a> </div>
                       <div class="port-info">
-            <h4><a href="#">Course Homepage</a></h4>
-            <span>Course information</span> </div>
+            <h4><a href="MyCoursesServlet?detailView=${requestScope.courseCode} ">Course Detail</a></h4>
+            <span>Course Information</span> </div>
                     </div>
         <div class="clearfix"> </div>
         <a class="more-ports text-center" href="#"><span> </span></a> </div>

@@ -49,7 +49,7 @@
 					<figure class="item">
 						<h3>${course.courseTitle }:</h3>
 						<p class="client-says">
-							<span class="left-quit"> &#8220;</span>${course.courseShortDesc }<span
+							<span class="left-quit"> &#8220; </span> &nbsp; ${course.courseShortDesc }<span
 								class="right-quit"> &#8221;</span>
 						</p>
 					</figure>
@@ -94,22 +94,39 @@
 						<div class="clearfix"></div>
 					</div>
 				</div>
-				<div class="col-md-3">
-					<div class="artical-info">
-						<div class="post-head">
-							<div class="post-head-left">
-								<h4>
-									<a href="#">Upcoming Session</a>
-								</h4>
+				<c:if test="${not detailviewcourse }">
+					<div class="col-md-3">
+						<div class="artical-info">
+							<div class="post-head">
+								<div class="post-head-left">
+									<h4>
+										<a href="#">Upcoming Session</a>
+									</h4>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="post-bottom-right">
+								<a class="artbtn artbtn1" href="#openModal">Enroll</a>
 							</div>
 							<div class="clearfix"></div>
 						</div>
-						<div class="post-bottom-right">
-							<a class="artbtn artbtn1" href="#openModal">Enroll</a>
-						</div>
-						<div class="clearfix"></div>
 					</div>
-				</div>
+				</c:if>
+				<c:if test="${detailviewcourse }">
+				<div class="col-md-3">
+						<div class="artical-info">
+							<div class="post-head">
+								<div class="post-head-left">
+									<h4>
+										<a href="#">Comments</a>
+									</h4>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</c:if>
 			</c:if>
 
 		</div>

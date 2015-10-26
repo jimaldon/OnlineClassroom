@@ -38,9 +38,11 @@ public class MyCoursesServlet extends HttpServlet {
 		
 		String courseCode = request.getParameter("courseCode");
 		String enrollCourseCode = request.getParameter("enrollCourseCode");
+		String detailViewCourseCode = request.getParameter("detailView");
 		
 		System.out.println("==== Requsting to Load Course ===== " + courseCode);
 		System.out.println("==== Requsting to enroll course ===== " + enrollCourseCode);
+		System.out.println("==== Requsting to Details View course ===== " + detailViewCourseCode);
 		
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
@@ -51,6 +53,12 @@ public class MyCoursesServlet extends HttpServlet {
 			
 			if(enrollCourseCode != null && !"".equals(enrollCourseCode)) {
 				response.sendRedirect("home.jsp");
+			} else if(detailViewCourseCode != null && !"".equals(detailViewCourseCode)) {
+				Courses course = courseDBAO.getCourseByCourseId(detailViewCourseCode);
+				request.setAttribute("course", course);
+				request.setAttribute("detailviewcourse", true);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("coursedetails.jsp");
+				requestDispatcher.forward(request, response);	
 			} else if(courseCode == null || "".equals(courseCode)) {
 				@SuppressWarnings("unchecked")
 				List<Menu> lstMenu = (List<Menu>) session.getAttribute("lstMenu");
