@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ntu.learn.inetprog.constants.ProfileInfoConstants;
 import com.ntu.learn.inetprog.database.UserDBAO;
 import com.ntu.learn.inetprog.model.Menu;
 import com.ntu.learn.inetprog.model.Users;
@@ -88,6 +89,19 @@ public class UserProfileServlet extends HttpServlet {
 			String telephone = request.getParameter("telephone");
 			String email = request.getParameter("emailId");
 			String userType = request.getParameter("typeOfUser");
+			String userProfileInfo="";
+			if(userType.equalsIgnoreCase("T")){
+				userProfileInfo = ProfileInfoConstants.USER_PROFILE_STAFF;
+			}
+			else if(userType.equalsIgnoreCase("S")){
+				userProfileInfo = ProfileInfoConstants.USER_PROFILE_STUDENT;
+			}
+			else if(userType.equalsIgnoreCase("A")){
+				userProfileInfo = ProfileInfoConstants.USER_PROFILE_ADMIN;
+			}
+			else{
+				userProfileInfo = ProfileInfoConstants.USER_PROFILE_OTHER;
+			}
 			String isDeleted = request.getParameter("isDeleted");
 			System.out.println("=== Updating user profile information with following values " + 
 			firstName +"," + lastName +","+gender +"," + birthDate +"," + birthMonth+","+birthYear+","+aboutMe+","
@@ -104,6 +118,7 @@ public class UserProfileServlet extends HttpServlet {
 			users.setPostalCode(postalCode);
 			users.setAddress(address);
 			users.setTypeOfUser(userType);
+			users.setAboutMe(userProfileInfo);
 			users.setIsDeleted(isDeleted);
 			users.setLoginName(loginName);
 			

@@ -49,12 +49,12 @@
 
 		<table>
 		<tr>
-		<td> <img class="p-img" src="images/adduser.png" alt="Add User"> <a href="AddUsersServlet?userTypeId=${usertype}"> Add New User</a>
+		<td> <img class="p-img" src="images/adduser.png" alt="Add User"> <a href="AddUsersServlet?userTypeId=${usertype}&userProfileInfo=${userprofileinfo}"> Add New ${userprofileinfo}</a> 
 		</td>
 		</tr>
 		</table>
 		<table border="1" style="width:100%">
-		<caption>Users List</caption>
+		<caption>${userprofileinfo} List</caption>
 		
 			<tr>
 			    <th>Login Name</th>

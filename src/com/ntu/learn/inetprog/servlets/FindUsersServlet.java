@@ -44,8 +44,10 @@ public class FindUsersServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("==== Loading Find Users Servlet DoGet Method ===== ");
 		String userType = request.getParameter("userTypeId");
+		String userProfileInfo = request.getParameter("userProfileInfo");
 				
 		System.out.println("==== The user type id is= "+ userType +" ====");
+		System.out.println("==== The user profile info is= "+ userProfileInfo +" ====");
 				
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
@@ -63,6 +65,7 @@ public class FindUsersServlet extends HttpServlet {
 			
 			request.setAttribute("listofusers", lstUsers);
 			request.setAttribute("usertype", userType);
+			request.setAttribute("userprofileinfo", userProfileInfo);
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("userslist.jsp");
 			requestDispatcher.forward(request, response);

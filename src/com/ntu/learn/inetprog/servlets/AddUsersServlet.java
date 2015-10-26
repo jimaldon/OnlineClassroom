@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ntu.learn.inetprog.constants.ProfileInfoConstants;
 import com.ntu.learn.inetprog.database.UserDBAO;
 import com.ntu.learn.inetprog.model.Menu;
 import com.ntu.learn.inetprog.model.Users;
@@ -76,10 +77,24 @@ public class AddUsersServlet extends HttpServlet {
 			String telephone = request.getParameter("telephone");
 			String email = request.getParameter("emailId");
 			String userType = request.getParameter("typeOfUser");
+			String userProfileInfo="";
+			if(userType.equalsIgnoreCase("T")){
+				userProfileInfo = ProfileInfoConstants.USER_PROFILE_STAFF;
+			}
+			else if(userType.equalsIgnoreCase("S")){
+				userProfileInfo = ProfileInfoConstants.USER_PROFILE_STUDENT;
+			}
+			else if(userType.equalsIgnoreCase("A")){
+				userProfileInfo = ProfileInfoConstants.USER_PROFILE_ADMIN;
+			}
+			else{
+				userProfileInfo = ProfileInfoConstants.USER_PROFILE_OTHER;
+			}
 			String isDeleted = request.getParameter("isDeleted");
 			System.out.println("=== Updating user profile information with following values " + 
 			firstName +"," + lastName +","+password +"," + loginName +"," + address+","+userType+","+isDeleted+","
 					+ ""+city+","+country+","+postalCode+","+telephone+","+email);
+			
 			
 			Users users = new Users();
 			users.setLoginName(loginName);
@@ -93,6 +108,7 @@ public class AddUsersServlet extends HttpServlet {
 			users.setEmail(email);
 			users.setPostalCode(postalCode);
 			users.setTypeOfUser(userType);
+			users.setAboutMe(userProfileInfo);
 			users.setIsDeleted(isDeleted);
 			
 			
@@ -105,7 +121,7 @@ public class AddUsersServlet extends HttpServlet {
 				updateFlag = false;
 			}
 			if(updateFlag) {
-				request.setAttribute("message", "User Profile "+loginName + " Has Been added Successfully");
+				request.setAttribute("message", "User Profile "+loginName + " has been added successfully");
 			} else {
 				request.setAttribute("message", "Oops, There was some error, Please contact Programm Manager..........");
 			}

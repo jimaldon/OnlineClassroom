@@ -32,9 +32,9 @@ public class UserDBAO extends DatabaseUtil {
 	String getUserProfileByAdmin =  "select LoginName,Password,FirstName, LastName, Gender, Address, City, Country, Email, Telephone,"
 			+ " PostalCode, Birthday_Month, Birthday_year, Birthday_Date, ProfileInfo,UserType,IsDeleted from users_profile where upper(LoginName) = ? ";
 	
-	String updateUserProfileByAdmin = "update users_profile set Password=?,FirstName = ?, LastName = ?, Address = ?, City = ?, Country = ?, Email = ?, Telephone = ?, PostalCode = ?, UserType = ?, IsDeleted=? where upper(LoginName) = ? ";
+	String updateUserProfileByAdmin = "update users_profile set Password=?,FirstName = ?, LastName = ?, Address = ?, City = ?, Country = ?, Email = ?, Telephone = ?, PostalCode = ?, UserType = ?,ProfileInfo = ?, IsDeleted=? where upper(LoginName) = ? ";
 	
-	String insertUserProfile = "insert into users_profile (LoginName,Password,FirstName, LastName,  Address, City, Country, Email,Telephone,PostalCode,UserType,IsDeleted) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+	String insertUserProfile = "insert into users_profile (LoginName,Password,FirstName, LastName,  Address, City, Country, Email,Telephone,PostalCode,UserType,ProfileInfo,IsDeleted) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	
 	public Users authenticate(String userId, String password) {
 		try {
@@ -256,8 +256,9 @@ public class UserDBAO extends DatabaseUtil {
 			prepStmt.setString(8, user.getTelephone());
 			prepStmt.setString(9, user.getPostalCode());
 			prepStmt.setString(10, user.getTypeOfUser());
-			prepStmt.setString(11, user.getIsDeleted());
-			prepStmt.setString(12, user.getLoginName());
+			prepStmt.setString(11, user.getAboutMe());
+			prepStmt.setString(12, user.getIsDeleted());
+			prepStmt.setString(13, user.getLoginName());
 			System.out.println(prepStmt);
 			
 			prepStmt.executeUpdate();
@@ -283,7 +284,8 @@ public class UserDBAO extends DatabaseUtil {
 			prepStmt.setString(9, user.getTelephone());
 			prepStmt.setString(10, user.getPostalCode());
 			prepStmt.setString(11, user.getTypeOfUser());
-			prepStmt.setString(12, user.getIsDeleted());
+			prepStmt.setString(12, user.getAboutMe());
+			prepStmt.setString(13, user.getIsDeleted());
 						
 			prepStmt.execute();
 			System.out.println(prepStmt.toString());

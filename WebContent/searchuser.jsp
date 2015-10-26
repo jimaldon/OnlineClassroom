@@ -53,7 +53,7 @@
 						<div class="post-head post-head1">
 							<div class="post-head-left">
 								<h4>
-									<a href="FindUsersServlet?userTypeId=${usertype.userType }">${usertype.profileInfo }</a>	
+									<a href="FindUsersServlet?userTypeId=${usertype.userType }&userProfileInfo=${usertype.profileInfo}">${usertype.profileInfo }</a>	
 								</h4>
 								
 							</div>
@@ -64,7 +64,7 @@
 						<div class="post-bottom">
 							
 							<div class="post-bottom-right">
-								<a class="artbtn artbtn1" href="FindUsersServlet?userTypeId=${usertype.userType }">View List</a>
+								<a class="artbtn artbtn1" href="FindUsersServlet?userTypeId=${usertype.userType }&userProfileInfo=${usertype.profileInfo}">View List</a>
 							</div>
 							<div class="clearfix"></div>
 						</div>
