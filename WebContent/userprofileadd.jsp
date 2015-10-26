@@ -11,6 +11,103 @@
 
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
+<script  type="text/javascript">
+function validateForm()
+{
+	var loginname = document.forms["adduser"]["loginName"].value;
+	var password = document.forms["adduser"]["password"].value;
+	var displayname = document.forms["adduser"]["displayName"].value;
+	var telephone = document.forms["adduser"]["telephone"].value;
+	var email = document.forms["adduser"]["emailId"].value;
+	var usertype = document.forms["adduser"]["typeOfUser"].value;
+	var isdeleted = document.forms["adduser"]["isDeleted"].value;
+	
+	//LoginName
+    if (loginname == null || loginname == "") {
+        alert("Login name must be filled out");
+        return false;
+    }
+    if(loginname.length <3){
+    	alert("Login name must be 3 characters");
+        return false;
+    }
+    var letters = /^[0-9a-zA-Z]+$/;  
+    if(!loginname.match(letters))  
+    {  
+    	alert('Please input alphanumeric characters only! No special characters');  
+        return false;
+    }  
+       
+    //Password
+    if (password == null || password == "") {
+        alert("Password  must be filled out");
+        return false;
+    }
+    if(password.length <3){
+    	alert("Password must be 3 characters");
+        return false;
+    }
+    //Display Name
+    if (displayname == null || displayname == "") {
+        alert("Password  must be filled out");
+        return false;
+    }
+    if(displayname.length <2){
+    	alert("Display must be 2 characters");
+        return false;
+    }
+  //Telephone 
+    if (telephone == null || telephone == "") {
+        alert("Telephone  must be filled out");
+        return false;
+    }
+    if(telephone.length <8){
+    	alert("Telephone number must be 8 characters");
+        return false;
+    }
+    var phoneno = /^\d{8}$/;  
+    if(!telephone.match(phoneno))  
+    {  
+    	 alert("Not a valid Phone Number");  
+         return false;   
+    }  
+    //Email
+    if (email == null || email == "") {
+        alert("Telephone  must be filled out");
+        return false;
+    }
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+    if(!email.match(mailformat))  
+    {  
+    	alert("You have entered an invalid email address!");  
+        document.forms["adduser"]["emailId"].focus();  
+        return false;  
+    }  
+   //User Type
+   
+    if (usertype == null || usertype == "") {
+        alert("User Type  must be either A or S or T");
+        return false;
+    }
+    if(usertype != "A" && usertype !="S" && usertype != "T" )  {
+    	alert("User Type  must be either A or S or T");
+        return false;
+    }
+    
+ //User Type
+    
+    if (isdeleted == null || isdeleted == "") {
+        alert("Is Deleted  must be either Y or N");
+        return false;
+    }
+    if(isdeleted != "Y" && isdeleted !="N")  {
+    	alert("Is deleted  must be either Y or N");
+        return false;
+    }
+    return true;
+}
+
+</script>
 <link rel="shortcut icon" href="images/favicon.ico" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/testmonial.css" />
@@ -48,13 +145,13 @@
 			<c:if test="${not empty message }">
 				<span style="color: red;"> ${message} </span>
 			</c:if>
-			<form action="AddUsersServlet" method="post">
+			<form name="adduser" action="AddUsersServlet" onsubmit="return validateForm()" method="post">
 				
 					<div id="port" class="container portfolio-main">
 						<table>
 							<tr>
 								<td class="td">Login Name</td>
-								<td class="td"><input type="text" name="loginName" style="width: 392.22222px;" /></td>
+								<td class="td"><input type="text" name="loginName" id="loginName" onchange="myFunction(this.value)" style="width: 392.22222px;" /></td>
 							</tr>
 							<tr>
 								<td class="td">Password</td>
