@@ -51,6 +51,9 @@ public class AddUsersServlet extends HttpServlet {
 			String userType = request.getParameter("userTypeId");
 			request.setAttribute("usertype", userType);
 			
+			String userProfileInfo = request.getParameter("userProfileInfo");
+			request.setAttribute("userprofileinfo", userProfileInfo);
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("userprofileadd.jsp");
 			requestDispatcher.forward(request, response);
 		}

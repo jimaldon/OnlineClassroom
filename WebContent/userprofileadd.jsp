@@ -42,7 +42,7 @@
 
 	<div id="port" class="portfolio portfolio-box">
 		<div class="container">
-			<h3>User Profile - Create New UserProfile</h3>
+			<h3>User Profile - Create New ${userprofileinfo} Profile</h3>
 			<!----start-portfolio---->
 			<br>
 			<c:if test="${not empty message }">
