@@ -11,6 +11,7 @@
 
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript" src="js/onlineclass.js"></script>
 <link rel="shortcut icon" href="images/favicon.ico" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/testmonial.css" />
@@ -124,17 +125,22 @@
 								<div class="clearfix"></div>
 								<div class="post-bottom-center">
 									<br>
-									<table>
-										<c:forEach items="${course.lstComments }" var="comments">
-											<tr>
-												<td><b> ${comments.commentedBy } : </b></td>
-												<td>${comments.commentsValue }</td>
-											</tr>
+									<div id="commentTable">
+										<table>
+											<c:forEach items="${course.lstComments }" var="comments">
+												<tr>
+													<td><b> ${comments.commentedBy } : </b></td>
+													<td>${comments.commentsValue }</td>
+												</tr>
 
-										</c:forEach>
+											</c:forEach>
+										</table>
+									</div>
+									<table>
 										<tr>
-											<td><input type="text"></td>
-											<td><input type="button" value="Comment" onclick=""></td>
+											<td><input type="text" name="comment" id="comment"></td>
+											<td><input type="button" value="Comment"
+												onclick="addComments('${course.courseCode}')"></td>
 										</tr>
 									</table>
 								</div>

@@ -31,6 +31,8 @@ public class CoursesDBAO extends DatabaseUtil {
 	
 	String getMyClassCourses = "select co.title, cc.Description, co.CourseID , co.likes from courses co join course_category cc on co.CoursecategoryId = cc.categoryId  where upper(co.author) = ?";
 	
+	String updateComments = "update courses set comments = ? where courseCode = ?";   
+	
 	public List<Courses> getAllCourseByCategory(String categoryName) {
 		try {
 
@@ -201,9 +203,30 @@ public class CoursesDBAO extends DatabaseUtil {
 		return null;
 	}
 	
+	public int updateCourseComments(String comments, String courseCode) {
+		int result = 0;
+		try {
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(updateComments);
+			
+			prepStmt.setString(1, comments);
+			prepStmt.setString(2, courseCode);
+			
+			System.out.println(" SQL Going to Fire "+prepStmt.toString());
+			
+			result = prepStmt.executeUpdate();
+			
+			return result;
+		} catch (Exception e ) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public List<Comments> parseJson(String jsonValue) {
 		List<Comments> lstComments = new ArrayList<Comments>();
 		try {
+			jsonValue = jsonValue.replace("\\", "");
+			System.out.println(jsonValue);
 			final JSONObject obj = new JSONObject(jsonValue);
 			final JSONArray geodata = obj.getJSONArray("comments");
 			final int n = geodata.length();
