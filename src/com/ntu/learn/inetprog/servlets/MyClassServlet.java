@@ -45,6 +45,10 @@ public class MyClassServlet extends HttpServlet {
 		String courseCode = request.getParameter("courseCode");
 		System.out.println(" Add Comments Parameter  comments for course " + comment +"," + courseCode);
 		
+		String viewDetail = request.getParameter("viewdetail");
+		
+		System.out.println("==== View Details of My Class Course " + viewDetail);
+		
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
 
@@ -66,7 +70,6 @@ public class MyClassServlet extends HttpServlet {
 			}
 			lstComments.add(comments);
 			List<JSONObject> lstJsonObj = null;
-			String jsonString = null;
 			JSONObject responseDetailsJson = new JSONObject();
 			JSONObject dbJson = new JSONObject();
 			try {
@@ -85,6 +88,13 @@ public class MyClassServlet extends HttpServlet {
 			
 			PrintWriter out = response.getWriter();
 			out.write(responseDetailsJson.toString());
+		} else if(viewDetail != null) {
+			CoursesDBAO courseDBAO = new CoursesDBAO();
+			Courses course = courseDBAO.getCourseByCourseId(viewDetail);
+			request.setAttribute("course", course);
+			request.setAttribute("detailviewcourse", true);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("coursedetails.jsp");
+			requestDispatcher.forward(request, response);
 		} else {
 			CoursesDBAO courseDBAO = new CoursesDBAO();
 			List<Courses> lstCourses = courseDBAO.getMyClassCourses(user.toUpperCase());
@@ -100,7 +110,6 @@ public class MyClassServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

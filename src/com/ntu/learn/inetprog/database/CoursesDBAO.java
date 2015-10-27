@@ -29,7 +29,7 @@ public class CoursesDBAO extends DatabaseUtil {
 	
 	String updateEnrolledCourse = "update course_enrolls set enroll_status=? where loginName=? and courseId=?";
 	
-	String getMyClassCourses = "select co.title, cc.Description, co.CourseID , co.likes from courses co join course_category cc on co.CoursecategoryId = cc.categoryId  where upper(co.author) = ?";
+	String getMyClassCourses = "select co.title, cc.Description, co.CourseID , co.likes, co.CourseCode from courses co join course_category cc on co.CoursecategoryId = cc.categoryId  where upper(co.author) = ?";
 	
 	String updateComments = "update courses set comments = ? where courseCode = ?";   
 	
@@ -194,6 +194,7 @@ public class CoursesDBAO extends DatabaseUtil {
 				course.setCourseTitle(rs.getString("title"));
 				course.setLikes(rs.getString("likes"));
 				course.setCourseCategory(rs.getString("Description"));
+				course.setCourseCode(rs.getString("CourseCode"));
 				lstCourses.add(course);
 			}
 			return lstCourses;

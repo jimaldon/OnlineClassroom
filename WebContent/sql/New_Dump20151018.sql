@@ -200,4 +200,37 @@ Normalization Concepts and Practice
     Assignment: Module 11 Assignment','');
     commit;
     
+    insert into course_contents (CourseCode,AboutCourse,Syllabus,VideoURL) values
+('DB1','A database is simply an organized collection of related data, typically stored on disk, and accessible by possibly many concurrent users. Databases are generally separated into application areas. For example, one database may contain Human Resource (employee and payroll) data; another may contain sales data; another may contain accounting data; and so on. Databases are managed by a DBMS..',
+'Week 1
+Practical Relational Databases and SQL
+
+Basic: INTRODUCTION AND RELATIONAL DATABASES, SQL
+Extended version add: INDEXES AND TRANSACTIONS, CONSTRAINTS AND TRIGGERS, VIEWS AND AUTHORIZATION
+Comprehensive version also add: ON-LINE ANALYTICAL PROCESSING, RECURSION IN SQL
+
+Week 2
+Practical Relational Databases and SQL with UML Design
+
+Basic: INTRODUCTION AND RELATIONAL DATABASES, UNIFIED MODELING LANGUAGE (UML), SQL
+Extended version add: INDEXES AND TRANSACTIONS, CONSTRAINTS AND TRIGGERS, VIEWS AND AUTHORIZATION
+Comprehensive version also add: ON-LINE ANALYTICAL PROCESSING, RECURSION IN SQL
+
+Week 3
+Relational Databases and SQL: Foundations and Practice
+
+Basic: INTRODUCTION AND RELATIONAL DATABASES, RELATIONAL ALGEBRA, SQL, RELATIONAL DESIGN THEORY, UNIFIED MODELING LANGUAGE (UML) 
+Extended version add: INDEXES AND TRANSACTIONS, CONSTRAINTS AND TRIGGERS, VIEWS AND AUTHORIZATION
+Comprehensive version also add: ON-LINE ANALYTICAL PROCESSING, RECURSION IN SQL
+
+Week 4
+Semistructured Data
+
+Basic: XML DATA, JSON DATA 
+With querying add: XPATH AND XQUERY
+With querying, comprehensive version add: XSLT
+
+Assignment: Module 11 Assignment','');
+    commit;
+    
  alter table courses modify comments longtext
