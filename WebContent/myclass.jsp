@@ -23,8 +23,7 @@
 			style="padding-left: 0px; padding-right: 0px; margin-left: 100px; margin-right: 0px; width: 1500px;">
 			<div class="logo" title="logo"></div>
 			<nav class="top-nav">
-				<ul class="top-nav" style="
-    width: 1000px;">
+				<ul class="top-nav" style="width: 1000px;">
 					<c:forEach items="${lstMenu}" var="menu">
 						<li class="page-scroll"><a href=${menu.menuURL
 							}
@@ -53,13 +52,14 @@
 					<th>Action</th>
 				</tr>
 
-				<c:forEach var="courses" items="${lstCourses }"
-					varStatus="loop">
+				<c:forEach var="courses" items="${lstCourses }" varStatus="loop">
 					<tr>
 						<td>${loop.index +1}</td>
-						<td><a href="MyClassServlet?viewdetail=${courses.courseCode }">${courses.courseTitle }</a></td>
+						<td><a
+							href="MyClassServlet?viewdetail=${courses.courseCode }">${courses.courseTitle }</a></td>
 						<td>${courses.courseCategory}</td>
-						<td><a href="MyClassServlet?editCourse=${courses.courseCode }">Edit</a></td>
+						<td><a
+							href="MyClassServlet?editCourse=${courses.courseCode }">Edit</a></td>
 						<%-- <td id="result${loop.index +1}" colspan="2"><span
 							class="submit-btn"> <input type="button" value="Reject"
 								onclick="approveOrRejectEnrolledCourse('${enrolledCourse.loginName}', '${enrolledCourse.courseId }' ,'R','result${loop.index +1}' )">
@@ -68,10 +68,12 @@
 								onclick="approveOrRejectEnrolledCourse('${enrolledCourse.loginName}', '${enrolledCourse.courseId }' ,'A','result${loop.index +1}')">
 						</span></td> --%>
 					</tr>
-
-
-
 				</c:forEach>
+				<tr>
+					<td colspan="4" align="center"
+						style="padding-top: 15px; padding-bottom: 15px;"><a
+						href="addeditcourse.jsp" class="artbtn artbtn1">Add Course</a></td>
+				</tr>
 			</table>
 		</div>
 

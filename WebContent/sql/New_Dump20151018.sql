@@ -233,4 +233,5 @@ With querying, comprehensive version add: XSLT
 Assignment: Module 11 Assignment','');
     commit;
     
- alter table courses modify comments longtext
+ alter table courses modify comments longtext;
+ alter table courses modify COLUMN  shortDescription varchar(1000) CHARACTER SET utf8;

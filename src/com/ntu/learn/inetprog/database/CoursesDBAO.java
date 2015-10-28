@@ -22,22 +22,27 @@ public class CoursesDBAO extends DatabaseUtil {
 			+ "co.course_Month, co.course_Date, co.course_year, co.comments, co.likes, co.author , "
 			+ "cc.AboutCourse, cc.Syllabus, cc.VideoURL from courses co join course_contents cc on co.CourseCode = cc.CourseCode "
 			+ "where upper(co.CourseCode) = ?";
-	
+
 	String getAllPendingEnrollment = "select up.LoginName, up.firstName,  co.title, co.courseID, co.courseCode, if(ce.enroll_status='P','Pending',ce.enroll_status) as  enroll_status ,co.author"
 			+ " from course_enrolls ce join courses co on ce.CourseID = co.CourseID join users_profile up "
 			+ "on up.loginName = ce.loginName where ce.enroll_status ='P' ";
-	
+
 	String updateEnrolledCourse = "update course_enrolls set enroll_status=? where loginName=? and courseId=?";
-	
+
 	String getMyClassCourses = "select co.title, cc.Description, co.CourseID , co.likes, co.CourseCode from courses co join course_category cc on co.CoursecategoryId = cc.categoryId  where upper(co.author) = ?";
-	
-	String updateComments = "update courses set comments = ? where courseCode = ?";   
-	
+
+	String updateComments = "update courses set comments = ? where courseCode = ?";
+
+	String insertCourse = "insert into courses (CourseCode,Title,shortDescription,CourseCategoryId,course_month,course_Date,course_year,author) values (?,?,?,?,?,?,?,?)";
+
+	String insertCourseContents = "insert into course_contents (CourseCode, AboutCourse, Syllabus) values (?,?,?)";
+
+	String getCourseCategoryByName = "select categoryId from course_category where upper(Description) = ? ";
+
 	public List<Courses> getAllCourseByCategory(String categoryName) {
 		try {
 
-			PreparedStatement prepStmt = getDBConnection().prepareStatement(
-					getAllCourseByCategorySql);
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(getAllCourseByCategorySql);
 			prepStmt.setString(1, categoryName);
 			ResultSet rs = prepStmt.executeQuery();
 
@@ -64,11 +69,10 @@ public class CoursesDBAO extends DatabaseUtil {
 		}
 		return null;
 	}
-	
+
 	public List<Courses> getAllCourseByUserName(String userName) {
 		try {
-			PreparedStatement prepStmt = getDBConnection().prepareStatement(
-					getAllCourseByUserSql);
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(getAllCourseByUserSql);
 			prepStmt.setString(1, userName);
 			ResultSet rs = prepStmt.executeQuery();
 			System.out.println("=== SQL Firing to Database " + getAllCourseByUserSql);
@@ -91,19 +95,18 @@ public class CoursesDBAO extends DatabaseUtil {
 
 			return lstCourses;
 
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	public Courses getCourseByCourseId(String courseCode) {
 		try {
-			PreparedStatement prepStmt = getDBConnection().prepareStatement(
-					getCourseByCourseId);
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(getCourseByCourseId);
 			prepStmt.setString(1, courseCode);
-			System.out.println(" SQL Going to Fire "+prepStmt.toString());
+			System.out.println(" SQL Going to Fire " + prepStmt.toString());
 			ResultSet rs = prepStmt.executeQuery();
 			Courses course = new Courses();
 			if (rs.next()) {
@@ -114,7 +117,9 @@ public class CoursesDBAO extends DatabaseUtil {
 				course.setCourseDate(rs.getString("course_Date"));
 				course.setCourseMonth(rs.getString("course_Month"));
 				course.setComments(rs.getString("comments"));
-				course.setLstComments(parseJson(course.getComments()));
+				if(course.getComments() != null) {
+					course.setLstComments(parseJson(course.getComments()));
+				}
 				course.setLikes(rs.getString("likes"));
 				course.setAuthor(rs.getString("author"));
 				String syllabus = rs.getString("Syllabus");
@@ -123,25 +128,23 @@ public class CoursesDBAO extends DatabaseUtil {
 				course.setAboutCourse(rs.getString("AboutCourse"));
 				course.setVideoURL(rs.getString("VideoURL"));
 			}
-			
-			
-			
+
 			return course;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	public List<EnrolledCourseUsers> getAllPendingEnrolledCourse() {
 		try {
 			PreparedStatement prepStmt = getDBConnection().prepareStatement(getAllPendingEnrollment);
-			System.out.println(" SQL Going to Fire "+prepStmt.toString());
+			System.out.println(" SQL Going to Fire " + prepStmt.toString());
 			ResultSet rs = prepStmt.executeQuery();
-			
+
 			List<EnrolledCourseUsers> lstEnrollment = new ArrayList<EnrolledCourseUsers>();
-			while(rs.next()) {
+			while (rs.next()) {
 				EnrolledCourseUsers enrolledUser = new EnrolledCourseUsers();
 				enrolledUser.setCourseAuthor(rs.getString("author"));
 				enrolledUser.setCourseStatus(rs.getString("enroll_status"));
@@ -152,43 +155,43 @@ public class CoursesDBAO extends DatabaseUtil {
 				enrolledUser.setCourseId(rs.getString("courseID"));
 				lstEnrollment.add(enrolledUser);
 			}
-			
+
 			return lstEnrollment;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	public int approveOrRejectEnrolledCourse(String courseId, String userName, String action) {
 		int status = 0;
 		try {
 			PreparedStatement prepStmt = getDBConnection().prepareStatement(updateEnrolledCourse);
-			
+
 			prepStmt.setString(1, action);
 			prepStmt.setString(2, userName);
 			prepStmt.setString(3, courseId);
-			
-			System.out.println(" SQL Going to Fire "+prepStmt.toString());
-			
+
+			System.out.println(" SQL Going to Fire " + prepStmt.toString());
+
 			status = prepStmt.executeUpdate();
-		} catch (Exception e ) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return  status;
+		return status;
 	}
-	
+
 	public List<Courses> getMyClassCourses(String loginName) {
 		try {
 			PreparedStatement prepStmt = getDBConnection().prepareStatement(getMyClassCourses);
-			
+
 			prepStmt.setString(1, loginName);
-			
-			System.out.println(" SQL Going to Fire "+prepStmt.toString());
-			
+
+			System.out.println(" SQL Going to Fire " + prepStmt.toString());
+
 			ResultSet rs = prepStmt.executeQuery();
 			List<Courses> lstCourses = new ArrayList<Courses>();
-			while(rs.next()) {
+			while (rs.next()) {
 				Courses course = new Courses();
 				course.setCourseId(rs.getString("CourseID"));
 				course.setCourseTitle(rs.getString("title"));
@@ -198,31 +201,86 @@ public class CoursesDBAO extends DatabaseUtil {
 				lstCourses.add(course);
 			}
 			return lstCourses;
-		} catch (Exception e ) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	public int updateCourseComments(String comments, String courseCode) {
 		int result = 0;
 		try {
 			PreparedStatement prepStmt = getDBConnection().prepareStatement(updateComments);
-			
+
 			prepStmt.setString(1, comments);
 			prepStmt.setString(2, courseCode);
-			
-			System.out.println(" SQL Going to Fire "+prepStmt.toString());
-			
+
+			System.out.println(" SQL Going to Fire " + prepStmt.toString());
+
 			result = prepStmt.executeUpdate();
-			
+
 			return result;
-		} catch (Exception e ) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
+
+	/**
+	 * "insert into courses (CourseCode,Title,shortDescription,CourseCategoryId,course_month,course_Date,course_year,author) values (?,?,?,?,?,?,?,?)"
+	 * ;
+	 * "insert into course_contents (CourseCode, AboutCourse, Syllabus) values (?,?,?)"
+	 * ;
+	 * 
+	 * @param course
+	 * @return
+	 */
+	public Courses createNewCourse(Courses course) {
+		try {
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(insertCourse);
+
+			prepStmt.setString(1, course.getCourseCode());
+			prepStmt.setString(2, course.getCourseTitle());
+			prepStmt.setString(3, course.getCourseShortDesc());
+			prepStmt.setString(4, course.getCourseCategory());
+			prepStmt.setString(5, course.getCourseMonth());
+			prepStmt.setString(6, course.getCourseDate());
+			prepStmt.setString(7, course.getCourseYear());
+			prepStmt.setString(8, course.getAuthor());
+			System.out.println(" === Firing SQL ==== " + prepStmt.toString());
+			prepStmt.execute();
+			
+			PreparedStatement prepStmts = getDBConnection().prepareStatement(insertCourseContents);
+			prepStmts.setString(1, course.getCourseCode());
+			prepStmts.setString(2, course.getAboutCourse());
+			prepStmts.setString(3, course.getCourseSyallbus());
+			System.out.println(" === Firing SQL ==== " + prepStmts.toString());
+			prepStmts.execute();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return course;
+	}
+
+	public String getCourseCategoryId(String courseCategoryDesc) {
+		String categoryId = null;
+		try {
+			PreparedStatement ps = getDBConnection().prepareStatement(getCourseCategoryByName);
+			ps.setString(1, courseCategoryDesc);
+			System.out.println(" === Firing SQL ==== " + ps.toString());
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				categoryId = rs.getString("categoryId");
+			}
+
+			return categoryId;
+		} catch (Exception e) {
+
+		}
+		return categoryId;
+	}
+
 	public List<Comments> parseJson(String jsonValue) {
 		List<Comments> lstComments = new ArrayList<Comments>();
 		try {
@@ -238,7 +296,7 @@ public class CoursesDBAO extends DatabaseUtil {
 				comment.setCommentsValue(comments.getString("comment"));
 				lstComments.add(comment);
 			}
-			
+
 			return lstComments;
 		} catch (Exception e) {
 			e.printStackTrace();
