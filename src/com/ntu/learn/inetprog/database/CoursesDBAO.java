@@ -235,7 +235,7 @@ public class CoursesDBAO extends DatabaseUtil {
 	 * @param course
 	 * @return
 	 */
-	public Courses createNewCourse(Courses course) {
+	public Courses createNewCourse(Courses course) throws Exception {
 		try {
 			PreparedStatement prepStmt = getDBConnection().prepareStatement(insertCourse);
 
@@ -259,6 +259,7 @@ public class CoursesDBAO extends DatabaseUtil {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new Exception();
 		}
 		return course;
 	}
@@ -276,7 +277,7 @@ public class CoursesDBAO extends DatabaseUtil {
 
 			return categoryId;
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 		return categoryId;
 	}

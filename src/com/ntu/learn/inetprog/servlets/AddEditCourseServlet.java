@@ -85,7 +85,12 @@ public class AddEditCourseServlet extends HttpServlet {
 			course.setCourseSyallbus(courseSyllabus);
 			course.setCourseCode(time.substring(time.length()-3, time.length()));
 			
-			courseDBAO.createNewCourse(course);
+			try {
+				courseDBAO.createNewCourse(course);
+				request.setAttribute("message", "Course Added Successfully");
+			} catch(Exception e) {
+				request.setAttribute("message", "Oops, Something went wrong, Please contact adminstrator");
+			}
 			
 			request.setAttribute("course", course);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("addeditcourse.jsp");

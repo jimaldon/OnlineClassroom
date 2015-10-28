@@ -125,7 +125,7 @@
 									<option value="13" ${course.courseMonth == '13' ? 'selected' : ''}>13</option>
 									<option value="14" ${course.courseMonth == '14' ? 'selected' : ''}>14</option>
 									<option value="15" ${course.courseMonth == '15' ? 'selected' : ''}>15</option>
-									<option value="16" ${course.bDate == '16' ? 'selected' : ''}>16</option>
+									<option value="16" ${course.courseMonth == '16' ? 'selected' : ''}>16</option>
 									<option value="17" ${course.courseMonth == '17' ? 'selected' : ''}>17</option>
 									<option value="18" ${course.courseMonth == '18' ? 'selected' : ''}>18</option>
 									<option value="19" ${course.courseMonth == '19' ? 'selected' : ''}>19</option>
@@ -147,7 +147,7 @@
 									<option value="2014"
 										${course.courseYear == '2014' ? 'selected' : ''}>2014</option>
 									<option value="courseYear"
-										${course.bYear == '2013' ? 'selected' : ''}>2013</option>
+										${course.courseYear == '2013' ? 'selected' : ''}>2013</option>
 
 							</select></td>
 						</tr>
