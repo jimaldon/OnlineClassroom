@@ -18,7 +18,7 @@ public class CoursesDBAO extends DatabaseUtil {
 
 	String getAllCourseByUserSql = "select CourseCode, Title, shortDescription, course_Month, course_Date, course_year, comments, likes, author from courses co join course_enrolls ce on co.CourseID = ce.CourseID where  upper(ce.LoginName) = ? and ce.enroll_status='A' ";
 
-	String getCourseByCourseId = " select co.CourseCode, co.Title, co.shortDescription, "
+	String getCourseByCourseId = " select co.CourseCode, co.Title, co.shortDescription,  co.CoursecategoryId, "
 			+ "co.course_Month, co.course_Date, co.course_year, co.comments, co.likes, co.author , "
 			+ "cc.AboutCourse, cc.Syllabus, cc.VideoURL from courses co join course_contents cc on co.CourseCode = cc.CourseCode "
 			+ "where upper(co.CourseCode) = ?";
@@ -39,7 +39,9 @@ public class CoursesDBAO extends DatabaseUtil {
 
 	String getCourseCategoryByName = "select categoryId from course_category where upper(Description) = ? ";
 	
-	String updateCourse = "";
+	String updateCourse = " update courses set title = ? , shortDescription = ? , courseCategoryId = ? , course_month = ?, course_date = ?, course_year = ? where courseCode = ?";
+	
+	String updateCoursecontents = " update course_contents set AboutCourse = ?, syllabus = ? where courseCode = ? ";
 
 	public List<Courses> getAllCourseByCategory(String categoryName) {
 		try {
@@ -119,6 +121,7 @@ public class CoursesDBAO extends DatabaseUtil {
 				course.setCourseDate(rs.getString("course_Date"));
 				course.setCourseMonth(rs.getString("course_Month"));
 				course.setComments(rs.getString("comments"));
+				course.setCourseCategory(rs.getString("CoursecategoryId"));
 				if(course.getComments() != null) {
 					course.setLstComments(parseJson(course.getComments()));
 				}
@@ -286,6 +289,11 @@ public class CoursesDBAO extends DatabaseUtil {
 		return categoryId;
 	}
 
+	/**
+	 * update course set title = ? , shortDescription = ? , courseCategoryId = ? , course_month = ?, course_date = ? course_year = ? where courseCode = ?
+	 * @param course
+	 * @return
+	 */
 	public Courses updateCourse(Courses course) {
 		try {
 			PreparedStatement prepStmt = getDBConnection().prepareStatement(updateCourse);
@@ -299,8 +307,18 @@ public class CoursesDBAO extends DatabaseUtil {
 			prepStmt.setString(7, course.getCourseCode());
 			System.out.println(" === Firing SQL ==== " + prepStmt.toString());
 			prepStmt.execute();
-		} catch(Exception e) {
 			
+			/**
+			 * update course_contents set AboutCourse = ?, syllabus = ? where courseCode = ? 
+			 */
+			PreparedStatement prepStmts = getDBConnection().prepareStatement(updateCoursecontents);
+			prepStmts.setString(1, course.getAboutCourse());
+			prepStmts.setString(2, course.getCourseSyallbus());
+			prepStmts.setString(3, course.getCourseCode());
+			System.out.println(" === Firing SQL ==== " + prepStmts.toString());
+			prepStmts.execute();
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 		return course;
 	}

@@ -73,7 +73,7 @@ public class AddEditCourseServlet extends HttpServlet {
 		} else if(editFlag != null && editFlag.equalsIgnoreCase(OnlineCSRoomConstants.FLAG_YES)) {
 			System.out.println("=== Request to update existing course =====");
 			
-		} else if(updateCourse != null) {
+		} else if(updateCourse.equalsIgnoreCase("UPDATE")) {
 			System.out.println("=== Request to Update Course ==== " + updateCourse);
 			CoursesDBAO courseDBAO = new CoursesDBAO();
 			String courseCode = request.getParameter("courseCode");
@@ -86,30 +86,31 @@ public class AddEditCourseServlet extends HttpServlet {
 			String ccYear = request.getParameter("year");
 			String courseSyllabus = request.getParameter("courseSyllabus");
 			
-			String categoryId = courseDBAO.getCourseCategoryId(courseCategory);
+			String categoryId = courseDBAO.getCourseCategoryId(courseCategory.toUpperCase());
 			
 			System.out.println("=== Updating course with following details "+","+courseCode+","+courseTitle+","+courseCategory+","
 			+shortDesc+","+aboutCourse+","+ccMonth+","+ccDay+","+ccYear+","+courseSyllabus);
 			
-			/*Courses course = new Courses();
+			Courses course = new Courses();
 			course.setCourseTitle(courseTitle);
 			course.setCourseShortDesc(shortDesc);
 			course.setCourseMonth(ccMonth);
 			course.setCourseDate(ccDay);
+			course.setAboutCourse(aboutCourse);
 			course.setCourseYear(ccYear);
 			course.setCourseCategory(categoryId);
 			course.setCourseSyallbus(courseSyllabus);
-			course.setCourseCode(updateCourse);*/
+			course.setCourseCode(courseCode);
 			try {
 				//if(course != null) {
-				//	course =  courseDBAO.updateCourse(course);
-					request.setAttribute("message", "Course Updated Successfully");
+				course =  courseDBAO.updateCourse(course);
+				request.setAttribute("message", "Course Updated Successfully");
 				//}
 			} catch(Exception e) {
 				request.setAttribute("message", "Oops, Something went wrong, Please contact adminstrator");
 			}
 			
-			//request.setAttribute("course", course);
+			request.setAttribute("course", course);
 			request.setAttribute("editCourse", true);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("addeditcourse.jsp");
 			requestDispatcher.forward(request, response);
@@ -139,6 +140,7 @@ public class AddEditCourseServlet extends HttpServlet {
 			course.setCourseTitle(courseTitle);
 			course.setCourseShortDesc(shortDesc);
 			course.setCourseMonth(ccMonth);
+			course.setAboutCourse(aboutCourse);
 			course.setCourseDate(ccDay);
 			course.setCourseYear(ccYear);
 			course.setAuthor(user);
