@@ -59,7 +59,7 @@
 							href="MyClassServlet?viewdetail=${courses.courseCode }">${courses.courseTitle }</a></td>
 						<td>${courses.courseCategory}</td>
 						<td><a
-							href="MyClassServlet?editCourse=${courses.courseCode }">Edit</a></td>
+							href="AddEditCourseServlet?editCourse=${courses.courseCode }">Edit</a></td>
 						<%-- <td id="result${loop.index +1}" colspan="2"><span
 							class="submit-btn"> <input type="button" value="Reject"
 								onclick="approveOrRejectEnrolledCourse('${enrolledCourse.loginName}', '${enrolledCourse.courseId }' ,'R','result${loop.index +1}' )">

@@ -58,7 +58,7 @@ public class MyClassServlet extends HttpServlet {
 		} else if(user != null && comment != null && courseCode != null) {
 			System.out.println(" Invoking method to add comments ");
 			CoursesDBAO courseDBAO = new CoursesDBAO();
-			Courses course = courseDBAO.getCourseByCourseId(courseCode);
+			Courses course = courseDBAO.getCourseByCourseId(courseCode, true );
 			
 			Comments comments = new Comments();
 			comments.setCommentedBy(user.toUpperCase());
@@ -90,7 +90,7 @@ public class MyClassServlet extends HttpServlet {
 			out.write(responseDetailsJson.toString());
 		} else if(viewDetail != null) {
 			CoursesDBAO courseDBAO = new CoursesDBAO();
-			Courses course = courseDBAO.getCourseByCourseId(viewDetail);
+			Courses course = courseDBAO.getCourseByCourseId(viewDetail, true);
 			request.setAttribute("course", course);
 			request.setAttribute("detailviewcourse", true);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("coursedetails.jsp");

@@ -59,7 +59,7 @@ public class FindCoursesServlet extends HttpServlet {
 
 				System.out.println("=== Selected Course Id ==== " + courseCode);
 				
-				Courses course = courseDBAO.getCourseByCourseId(courseCode.toUpperCase());
+				Courses course = courseDBAO.getCourseByCourseId(courseCode.toUpperCase(), true);
 				
 				request.setAttribute("course", course);
 				

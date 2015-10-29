@@ -160,9 +160,14 @@
 
 						<tr>
 
-							<td class="td" colspan="2" align="center"><input
-								type="submit" value="Save" class="artbtn artbtn1"> <input
-								type="button" value="Back" class="artbtn artbtn1"
+							<td class="td" colspan="2" align="center">
+										<c:if test="${not editCourse }">
+							<input type="submit" value="Save" class="artbtn artbtn1"> 
+							</c:if>
+										<c:if test="${editCourse }">
+										<input type="button" value="Update" class="artbtn artbtn1" onclick="location.href='AddEditCourseServlet?updateCourse=${course.courseCode}'"> 
+										</c:if>
+							<input type="button" value="Back" class="artbtn artbtn1"
 								onclick="location.href='home.jsp'"></td>
 						</tr>
 					</table>

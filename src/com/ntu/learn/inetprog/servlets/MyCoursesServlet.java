@@ -54,7 +54,7 @@ public class MyCoursesServlet extends HttpServlet {
 			if(enrollCourseCode != null && !"".equals(enrollCourseCode)) {
 				response.sendRedirect("home.jsp");
 			} else if(detailViewCourseCode != null && !"".equals(detailViewCourseCode)) {
-				Courses course = courseDBAO.getCourseByCourseId(detailViewCourseCode);
+				Courses course = courseDBAO.getCourseByCourseId(detailViewCourseCode, true);
 				request.setAttribute("course", course);
 				request.setAttribute("detailviewcourse", true);
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("coursedetails.jsp");
@@ -76,7 +76,7 @@ public class MyCoursesServlet extends HttpServlet {
 				requestDispatcher.forward(request, response);
 
 			} else {
-				Courses c = courseDBAO.getCourseByCourseId(courseCode);
+				Courses c = courseDBAO.getCourseByCourseId(courseCode, true);
 				String courseTitle = c.getCourseTitle();
 					request.setAttribute("courseCode", courseCode);
 					request.setAttribute("courseTitle", courseTitle);

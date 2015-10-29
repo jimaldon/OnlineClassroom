@@ -33,8 +33,27 @@ public class AddEditCourseServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
+		
+		String editCourse = request.getParameter("editCourse");
+		String updateCourse = request.getParameter("updateCourse");
+		
+		if (user == null) {
+			System.out.println(" ==== User Object is Null ====== ");
+			response.sendRedirect("login.jsp");
+		} else if (editCourse != null) {
+			System.out.println("=== Course to Edit and Save ==== " + editCourse);
+			CoursesDBAO courseDBAO = new CoursesDBAO();
+			Courses course = courseDBAO.getCourseByCourseId(editCourse, false);
+			request.setAttribute("course", course);
+			request.setAttribute("editCourse", true);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("addeditcourse.jsp");
+			requestDispatcher.forward(request, response);
+		} else if(updateCourse != null) {
+			System.out.println("=== Request to Update Course ==== " + editCourse);
+		}
 	}
 
 	/**
@@ -54,6 +73,7 @@ public class AddEditCourseServlet extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		} else if(editFlag != null && editFlag.equalsIgnoreCase(OnlineCSRoomConstants.FLAG_YES)) {
 			System.out.println("=== Request to update existing course =====");
+			
 		} else {
 			System.out.println("=== Request to add new course =====");
 			String courseTitle = request.getParameter("courseTitle");
@@ -93,6 +113,7 @@ public class AddEditCourseServlet extends HttpServlet {
 			}
 			
 			request.setAttribute("course", course);
+			request.setAttribute("editCourse", true);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("addeditcourse.jsp");
 			requestDispatcher.forward(request, response);
 			

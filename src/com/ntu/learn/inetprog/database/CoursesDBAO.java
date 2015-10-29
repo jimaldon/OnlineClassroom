@@ -102,7 +102,7 @@ public class CoursesDBAO extends DatabaseUtil {
 		return null;
 	}
 
-	public Courses getCourseByCourseId(String courseCode) {
+	public Courses getCourseByCourseId(String courseCode, boolean replaceFlag) {
 		try {
 			PreparedStatement prepStmt = getDBConnection().prepareStatement(getCourseByCourseId);
 			prepStmt.setString(1, courseCode);
@@ -123,7 +123,9 @@ public class CoursesDBAO extends DatabaseUtil {
 				course.setLikes(rs.getString("likes"));
 				course.setAuthor(rs.getString("author"));
 				String syllabus = rs.getString("Syllabus");
-				syllabus = syllabus.replace("\n", "<br>");
+				if(replaceFlag) {
+					syllabus = syllabus.replace("\n", "<br>");
+				}
 				course.setCourseSyallbus(syllabus);
 				course.setAboutCourse(rs.getString("AboutCourse"));
 				course.setVideoURL(rs.getString("VideoURL"));
