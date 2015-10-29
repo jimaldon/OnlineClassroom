@@ -139,7 +139,7 @@
             <span>Lecture videos and documents</span> </div>
                     </div>
         <div class="portfolio icon mix_all" data-cat="icon" style="display: inline-block; opacity: 1;">
-                      <div class="portfolio-wrapper"> <a data-toggle="modal" data-target=".bs-example-modal-md" href="#" class="b-link-stripe b-animate-go  thickbox"> <img class="p-img" src="images/p3upload.jpg" />
+                      <div class="portfolio-wrapper"> <a data-toggle="modal" data-target=".bs-example-modal-md" href="UploadServlet?detailView=${requestScope.courseCode}" class="b-link-stripe b-animate-go  thickbox"> <img class="p-img" src="images/p3upload.jpg" />
                         <div class="b-wrapper">
                         <h2 class="b-animate b-from-left b-delay03"><img src="images/link-ico.png" alt=""/></h2>
                       </div>
@@ -155,7 +155,7 @@
                       </div>
                         </a> </div>
                       <div class="port-info">
-            <h4><a href="MyCoursesServlet?detailView=${requestScope.courseCode} ">Course Detail</a></h4>
+            <h4><a href="MyCoursesServlet?detailView=${requestScope.courseCode}${requestScope.courseTitle}">Course Detail</a></h4>
             <span>Course Information</span> </div>
                     </div>
         <div class="clearfix"> </div>
