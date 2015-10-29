@@ -38,6 +38,8 @@ public class CoursesDBAO extends DatabaseUtil {
 	String insertCourseContents = "insert into course_contents (CourseCode, AboutCourse, Syllabus) values (?,?,?)";
 
 	String getCourseCategoryByName = "select categoryId from course_category where upper(Description) = ? ";
+	
+	String updateCourse = "";
 
 	public List<Courses> getAllCourseByCategory(String categoryName) {
 		try {
@@ -284,6 +286,24 @@ public class CoursesDBAO extends DatabaseUtil {
 		return categoryId;
 	}
 
+	public Courses updateCourse(Courses course) {
+		try {
+			PreparedStatement prepStmt = getDBConnection().prepareStatement(updateCourse);
+			
+			prepStmt.setString(1, course.getCourseTitle());
+			prepStmt.setString(2, course.getCourseShortDesc());
+			prepStmt.setString(3, course.getCourseCategory());
+			prepStmt.setString(4, course.getCourseMonth());
+			prepStmt.setString(5, course.getCourseDate());
+			prepStmt.setString(6, course.getCourseYear());
+			prepStmt.setString(7, course.getCourseCode());
+			System.out.println(" === Firing SQL ==== " + prepStmt.toString());
+			prepStmt.execute();
+		} catch(Exception e) {
+			
+		}
+		return course;
+	}
 	public List<Comments> parseJson(String jsonValue) {
 		List<Comments> lstComments = new ArrayList<Comments>();
 		try {

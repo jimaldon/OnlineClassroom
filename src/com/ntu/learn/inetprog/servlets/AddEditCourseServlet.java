@@ -38,7 +38,7 @@ public class AddEditCourseServlet extends HttpServlet {
 		String user = (String) session.getAttribute("user");
 		
 		String editCourse = request.getParameter("editCourse");
-		String updateCourse = request.getParameter("updateCourse");
+		
 		
 		if (user == null) {
 			System.out.println(" ==== User Object is Null ====== ");
@@ -51,9 +51,7 @@ public class AddEditCourseServlet extends HttpServlet {
 			request.setAttribute("editCourse", true);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("addeditcourse.jsp");
 			requestDispatcher.forward(request, response);
-		} else if(updateCourse != null) {
-			System.out.println("=== Request to Update Course ==== " + editCourse);
-		}
+		} 
 	}
 
 	/**
@@ -67,6 +65,7 @@ public class AddEditCourseServlet extends HttpServlet {
 		String user = (String) session.getAttribute("user");
 		
 		String editFlag = request.getParameter("editFlag");
+		String updateCourse = request.getParameter("submit");
 
 		if (user == null) {
 			System.out.println(" ==== User Object is Null ====== ");
@@ -74,7 +73,49 @@ public class AddEditCourseServlet extends HttpServlet {
 		} else if(editFlag != null && editFlag.equalsIgnoreCase(OnlineCSRoomConstants.FLAG_YES)) {
 			System.out.println("=== Request to update existing course =====");
 			
-		} else {
+		} else if(updateCourse != null) {
+			System.out.println("=== Request to Update Course ==== " + updateCourse);
+			CoursesDBAO courseDBAO = new CoursesDBAO();
+			String courseCode = request.getParameter("courseCode");
+			String courseTitle = request.getParameter("courseTitle");
+			String courseCategory = request.getParameter("courseCategory");
+			String shortDesc = request.getParameter("shortDesc");
+			String aboutCourse = request.getParameter("aboutCourse");
+			String ccMonth = request.getParameter("month");
+			String ccDay = request.getParameter("date");
+			String ccYear = request.getParameter("year");
+			String courseSyllabus = request.getParameter("courseSyllabus");
+			
+			String categoryId = courseDBAO.getCourseCategoryId(courseCategory);
+			
+			System.out.println("=== Updating course with following details "+","+courseCode+","+courseTitle+","+courseCategory+","
+			+shortDesc+","+aboutCourse+","+ccMonth+","+ccDay+","+ccYear+","+courseSyllabus);
+			
+			/*Courses course = new Courses();
+			course.setCourseTitle(courseTitle);
+			course.setCourseShortDesc(shortDesc);
+			course.setCourseMonth(ccMonth);
+			course.setCourseDate(ccDay);
+			course.setCourseYear(ccYear);
+			course.setCourseCategory(categoryId);
+			course.setCourseSyallbus(courseSyllabus);
+			course.setCourseCode(updateCourse);*/
+			try {
+				//if(course != null) {
+				//	course =  courseDBAO.updateCourse(course);
+					request.setAttribute("message", "Course Updated Successfully");
+				//}
+			} catch(Exception e) {
+				request.setAttribute("message", "Oops, Something went wrong, Please contact adminstrator");
+			}
+			
+			//request.setAttribute("course", course);
+			request.setAttribute("editCourse", true);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("addeditcourse.jsp");
+			requestDispatcher.forward(request, response);
+		}
+		
+		else {
 			System.out.println("=== Request to add new course =====");
 			String courseTitle = request.getParameter("courseTitle");
 			String courseCategory = request.getParameter("courseCategory");
