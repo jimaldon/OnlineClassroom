@@ -21,7 +21,7 @@ public class UploadServlet extends HttpServlet {
    
    private boolean isMultipart;
    private String filePath;
-   private int maxFileSize = 50 * 1024;
+   private int maxFileSize = 2 * 1024 * 1024;
    private int maxMemSize = 4 * 1024;
    private File file ;
 
@@ -29,7 +29,9 @@ public class UploadServlet extends HttpServlet {
       // Get the file location where it would be stored.
       filePath = 
              getServletContext().getInitParameter("file-upload"); 
+      System.out.println(filePath);
    }
+   
    public void doPost(HttpServletRequest request, 
                HttpServletResponse response)
               throws ServletException, java.io.IOException {
@@ -84,14 +86,12 @@ public class UploadServlet extends HttpServlet {
             long sizeInBytes = fi.getSize();
             // Write the file
             if( fileName.lastIndexOf("\\") >= 0 ){
-               file = new File( filePath + 
-               fileName.substring( fileName.lastIndexOf("\\"))) ;
+               file = new File( filePath + fileName.substring(fileName.lastIndexOf("\\")+1)) ;
             }else{
-               file = new File( filePath + 
-               fileName.substring(fileName.lastIndexOf("\\")+1)) ;
+               file = new File( filePath + fileName.substring(fileName.lastIndexOf("\\")+1)) ;
             }
             fi.write( file ) ;
-            out.println("Uploaded Filename: " + fileName + "<br>");
+            out.println("SUCCESS! Uploaded Filename: " + fileName + "<br>");
          }
       }
       out.println("</body>");
