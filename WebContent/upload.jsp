@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Online Class Room</title>
+<title>File Upload</title>
 
 <script src="js/jquery.min.js"></script>
 
@@ -43,12 +43,29 @@
 	<div class="clearfix"></div>
 	
 <h3>Upload Assignment:</h3>
-Select a file to upload: <br />
-<form action="UploadServlet" method="post"
-                        enctype="multipart/form-data">
-<input type="file" name="file" size="50" />
-<br />
-<input type="submit" value="Upload File" />
-</form>
+
+<div id="port" class="portfolio portfolio-box">
+		<div class="container">
+			<h3>Upload File</h3>
+			<div id="port" class="container portfolio-main">
+				<div>
+					<c:if test="${not empty message }">
+						<span style="color: red;">${message }</span>
+					</c:if>
+				</div>
+				<div id="portfoliolist">
+							File size should be less than 2MB <br />
+							<form action="UploadServlet" method="post"
+                        	enctype="multipart/form-data">
+							<input type="file" name="file" size="50" />
+							<br />
+							<input type="submit" value="Upload File" />
+							</form>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>
