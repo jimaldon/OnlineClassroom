@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="OnlineClassRoom">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="OnlineClassRoom"/>
         <property name="java-output-path" value="/OnlineClassRoom/build/classes"/>
+        <property name="context-root" value="com.ntu.learn.OnlineClassRoom"/>
     </wb-module>
 </project-modules>
